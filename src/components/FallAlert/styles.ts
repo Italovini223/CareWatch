@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { motion } from 'motion/react';
 
-export const AlertWrapper = styled(motion.View)`
+export const AlertWrapper = styled(motion.view)`
   position: fixed;
   top: 1rem;
   left: 1rem;

@@ -34,7 +34,7 @@ export function FallAlert({ onDismiss, elderName, time }: FallAlertProps) {
           </AlertMessage>
           <AlertHint>Verifique imediatamente a situação</AlertHint>
         </AlertContent>
-        <DismissButton onClick={onDismiss}>
+        <DismissButton onPress={onDismiss}>
           <X size={20} />
         </DismissButton>
       </AlertBox>
