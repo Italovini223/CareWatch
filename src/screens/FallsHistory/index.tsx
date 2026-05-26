@@ -1,0 +1,224 @@
+import { ArrowLeft, Calendar, AlertTriangle, MapPin, Clock } from 'lucide-react';
+import { useNavigate } from 'react-router';
+import { Navigation } from '../../components/Navigation';
+import { PrototypeMenu } from '../../components/PrototypeMenu';
+import {
+  Container,
+  PageHeader,
+  HeaderInner,
+  BackButton,
+  BackButtonText,
+  PageTitle,
+  DateRow,
+  DateText,
+  Content,
+  StatsGrid,
+  StatItem,
+  StatItemLabel,
+  StatItemValue,
+  AlertCard,
+  AlertIconWrapper,
+  AlertContent,
+  AlertTitle,
+  AlertText,
+  SectionTitle,
+  IncidentsList,
+  IncidentCard,
+  IncidentHeader,
+  IncidentTitleRow,
+  IncidentIconBox,
+  IncidentTitleBlock,
+  IncidentTitle,
+  IncidentDate,
+  SeverityBadge,
+  IncidentMetaList,
+  IncidentMetaItem,
+  IncidentMetaText,
+  VitalsBox,
+  VitalsTitle,
+  VitalsRow,
+  VitalItem,
+  VitalLabel,
+  VitalValue,
+  NotesSection,
+  NotesLabel,
+  NotesText,
+  RespondedRow,
+  RespondedDot,
+  RespondedText,
+  TipsCard,
+  TipsTitle,
+  TipsList,
+  TipItem,
+  TipBullet,
+  TipText,
+} from './styles';
+
+const fallIncidents = [
+  {
+    id: 1,
+    date: '29 de março de 2026',
+    time: '14:32',
+    location: 'Sala de estar',
+    severity: 'moderate',
+    severityLabel: 'Moderada',
+    responded: true,
+    notes: 'Idosa levantou sozinha após 2 minutos. Sem ferimentos aparentes.',
+    vitals: { heartRate: 95, bloodPressure: '135/88' },
+  },
+  {
+    id: 2,
+    date: '25 de março de 2026',
+    time: '08:15',
+    location: 'Banheiro',
+    severity: 'low',
+    severityLabel: 'Leve',
+    responded: true,
+    notes: 'Escorregou ao sair do banho. Sem lesões.',
+    vitals: { heartRate: 88, bloodPressure: '128/82' },
+  },
+  {
+    id: 3,
+    date: '18 de março de 2026',
+    time: '19:45',
+    location: 'Quarto',
+    severity: 'low',
+    severityLabel: 'Leve',
+    responded: true,
+    notes: 'Tropeçou no tapete. Assistência imediata prestada.',
+    vitals: { heartRate: 82, bloodPressure: '122/80' },
+  },
+];
+
+export function FallsHistory() {
+  const navigate = useNavigate();
+
+  return (
+    <Container>
+      <PageHeader>
+        <HeaderInner>
+          <BackButton onPress={() => navigate('/')}>
+            <ArrowLeft size={20} color="white" />
+            <BackButtonText>Voltar</BackButtonText>
+          </BackButton>
+          <PageTitle>Histórico de Quedas</PageTitle>
+          <DateRow>
+            <Calendar size={16} color="#fed7aa" />
+            <DateText>Últimos 30 dias</DateText>
+          </DateRow>
+        </HeaderInner>
+      </PageHeader>
+
+      <Content>
+        <StatsGrid>
+          <StatItem>
+            <StatItemLabel>Total</StatItemLabel>
+            <StatItemValue>3</StatItemValue>
+          </StatItem>
+          <StatItem>
+            <StatItemLabel>Este Mês</StatItemLabel>
+            <StatItemValue $color="#ea580c">3</StatItemValue>
+          </StatItem>
+          <StatItem>
+            <StatItemLabel>Média Mensal</StatItemLabel>
+            <StatItemValue>2.5</StatItemValue>
+          </StatItem>
+        </StatsGrid>
+
+        <AlertCard>
+          <AlertIconWrapper>
+            <AlertTriangle size={16} color="white" />
+          </AlertIconWrapper>
+          <AlertContent>
+            <AlertTitle>Recomendação de Segurança</AlertTitle>
+            <AlertText>
+              Foram detectadas 3 quedas no último mês. Recomenda-se avaliação médica e revisão das
+              condições de segurança do ambiente.
+            </AlertText>
+          </AlertContent>
+        </AlertCard>
+
+        <SectionTitle>Todas as Ocorrências</SectionTitle>
+
+        <IncidentsList>
+          {fallIncidents.map((incident) => (
+            <IncidentCard key={incident.id}>
+              <IncidentHeader>
+                <IncidentTitleRow>
+                  <IncidentIconBox>
+                    <AlertTriangle size={20} color="#dc2626" />
+                  </IncidentIconBox>
+                  <IncidentTitleBlock>
+                    <IncidentTitle>Queda Detectada</IncidentTitle>
+                    <IncidentDate>{incident.date}</IncidentDate>
+                  </IncidentTitleBlock>
+                </IncidentTitleRow>
+                <SeverityBadge $severity={incident.severity}>
+                  {incident.severityLabel}
+                </SeverityBadge>
+              </IncidentHeader>
+
+              <IncidentMetaList>
+                <IncidentMetaItem>
+                  <Clock size={16} color="#6B7280" />
+                  <IncidentMetaText>{incident.time}</IncidentMetaText>
+                </IncidentMetaItem>
+                <IncidentMetaItem>
+                  <MapPin size={16} color="#6B7280" />
+                  <IncidentMetaText>{incident.location}</IncidentMetaText>
+                </IncidentMetaItem>
+              </IncidentMetaList>
+
+              <VitalsBox>
+                <VitalsTitle>Sinais Vitais no Momento</VitalsTitle>
+                <VitalsRow>
+                  <VitalItem>
+                    <VitalLabel>Batimentos</VitalLabel>
+                    <VitalValue>{incident.vitals.heartRate} bpm</VitalValue>
+                  </VitalItem>
+                  <VitalItem>
+                    <VitalLabel>Pressão</VitalLabel>
+                    <VitalValue>{incident.vitals.bloodPressure} mmHg</VitalValue>
+                  </VitalItem>
+                </VitalsRow>
+              </VitalsBox>
+
+              <NotesSection>
+                <NotesLabel>Observações:</NotesLabel>
+                <NotesText>{incident.notes}</NotesText>
+              </NotesSection>
+
+              {incident.responded && (
+                <RespondedRow>
+                  <RespondedDot />
+                  <RespondedText>Atendido</RespondedText>
+                </RespondedRow>
+              )}
+            </IncidentCard>
+          ))}
+        </IncidentsList>
+
+        <TipsCard>
+          <TipsTitle>Dicas de Prevenção</TipsTitle>
+          <TipsList>
+            {[
+              'Remova tapetes soltos e obstáculos dos caminhos',
+              'Instale barras de apoio no banheiro',
+              'Mantenha boa iluminação em todos os ambientes',
+              'Use calçados antiderrapantes',
+              'Consulte um médico sobre medicamentos que causam tontura',
+            ].map((tip, i) => (
+              <TipItem key={i}>
+                <TipBullet>•</TipBullet>
+                <TipText>{tip}</TipText>
+              </TipItem>
+            ))}
+          </TipsList>
+        </TipsCard>
+      </Content>
+
+      <Navigation />
+      <PrototypeMenu />
+    </Container>
+  );
+}
