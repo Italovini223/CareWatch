@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+import { useNavigation } from '@react-navigation/native';
 import {
   Home,
   Activity,
@@ -9,7 +9,7 @@ import {
   ChevronRight,
   Watch,
   Shield,
-} from 'lucide-react';
+} from 'lucide-react-native';
 import {
   Container,
   PageHeader,
@@ -53,6 +53,8 @@ const screens = [
     label: 'Login',
     description: 'Entrada com email e senha do cuidador',
     path: '/login',
+    routeName: 'Login',
+    tabScreen: false,
     icon: LogIn,
     gradientFrom: '#3B82F6',
     gradientTo: '#1D4ED8',
@@ -64,6 +66,8 @@ const screens = [
     label: 'Cadastro',
     description: 'Registro com serial da pulseira no formato XXXX-XXXX-XXXX',
     path: '/register',
+    routeName: 'Register',
+    tabScreen: false,
     icon: UserPlus,
     gradientFrom: '#A855F7',
     gradientTo: '#7C3AED',
@@ -75,6 +79,8 @@ const screens = [
     label: 'Dashboard',
     description: 'Monitoramento em tempo real com alertas de queda',
     path: '/',
+    routeName: 'Dashboard',
+    tabScreen: true,
     icon: Home,
     gradientFrom: '#2563EB',
     gradientTo: '#4338CA',
@@ -86,6 +92,8 @@ const screens = [
     label: 'Pressão Sanguínea',
     description: 'Histórico diário com gráfico sistólica/diastólica',
     path: '/blood-pressure',
+    routeName: 'BloodPressure',
+    tabScreen: true,
     icon: Activity,
     gradientFrom: '#0EA5E9',
     gradientTo: '#2563EB',
@@ -97,6 +105,8 @@ const screens = [
     label: 'Batimentos Cardíacos',
     description: 'Frequência cardíaca com zonas de atividade',
     path: '/heart-rate',
+    routeName: 'HeartRate',
+    tabScreen: true,
     icon: Heart,
     gradientFrom: '#EF4444',
     gradientTo: '#DB2777',
@@ -108,6 +118,8 @@ const screens = [
     label: 'Histórico de Quedas',
     description: 'Ocorrências detectadas com localização e sinais vitais',
     path: '/falls',
+    routeName: 'Falls',
+    tabScreen: true,
     icon: AlertTriangle,
     gradientFrom: '#F97316',
     gradientTo: '#DC2626',
@@ -124,7 +136,7 @@ screens.forEach((s) => {
 });
 
 export function ScreensOverview() {
-  const navigate = useNavigate();
+  const navigation = useNavigation<any>();
 
   return (
     <Container>
@@ -167,8 +179,16 @@ export function ScreensOverview() {
             <ScreensList>
               {items.map((screen) => {
                 const Icon = screen.icon;
+                const handlePress = () => {
+                  if (screen.tabScreen) {
+                    navigation.navigate('MainTabs', { screen: screen.routeName });
+                    return;
+                  }
+                  navigation.navigate(screen.routeName);
+                };
+
                 return (
-                  <ScreenButton key={screen.path} onPress={() => navigate(screen.path)}>
+                  <ScreenButton key={screen.path} onPress={handlePress}>
                     <ScreenCard>
                       <ScreenIconBox
                         $gradientFrom={screen.gradientFrom}

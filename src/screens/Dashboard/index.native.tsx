@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Animated } from 'react-native';
 import { Activity, Heart, AlertTriangle, User, LogOut } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
-import { toast } from '../../utils/toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { toast } from '../../utils/toast';
 import { StatCard } from '../../components/StatCard';
 import { FallAlert } from '../../components/FallAlert';
 import {
-  Container,
+  Screen,
   PageHeader,
   HeaderInner,
   HeaderRow,
@@ -33,7 +34,7 @@ import {
   LogoutArea,
   LogoutButton,
   LogoutButtonText,
-} from './styles';
+} from './styles.native';
 
 export function Dashboard() {
   const navigation = useNavigation<any>();
@@ -43,6 +44,7 @@ export function Dashboard() {
     heartRate: 72,
     lastUpdate: new Date(),
   });
+  const pulseOpacity = useRef(new Animated.Value(1)).current;
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem('isAuthenticated');
@@ -72,6 +74,23 @@ export function Dashboard() {
     return () => clearTimeout(timeout);
   }, []);
 
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulseOpacity, {
+          toValue: 0.4,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseOpacity, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, [pulseOpacity]);
+
   const getBloodPressureStatus = () => {
     const { systolic, diastolic } = currentData.bloodPressure;
     if (systolic > 140 || diastolic > 90) return 'danger';
@@ -87,14 +106,14 @@ export function Dashboard() {
   };
 
   return (
-    <Container>
-      {showFallAlert && (
+    <Screen>
+      {showFallAlert ? (
         <FallAlert
           elderName="Maria Silva"
           time={new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
           onDismiss={() => setShowFallAlert(false)}
         />
-      )}
+      ) : null}
 
       <PageHeader>
         <HeaderInner>
@@ -109,7 +128,7 @@ export function Dashboard() {
               </UserDetails>
             </UserInfo>
             <ConnectedBadge>
-              <PulseDot />
+              <PulseDot style={{ opacity: pulseOpacity }} />
               <ConnectedText>Conectado</ConnectedText>
             </ConnectedBadge>
           </HeaderRow>
@@ -169,7 +188,7 @@ export function Dashboard() {
             <QuickStatLabel>Média BPM</QuickStatLabel>
             <QuickStatValue>74</QuickStatValue>
           </QuickStatCard>
-          <QuickStatCard>
+          <QuickStatCard $isLast>
             <QuickStatLabel>Total Quedas</QuickStatLabel>
             <QuickStatValue $color="#CA8A04">3</QuickStatValue>
           </QuickStatCard>
@@ -182,7 +201,6 @@ export function Dashboard() {
           </LogoutButton>
         </LogoutArea>
       </Content>
-
-    </Container>
+    </Screen>
   );
 }

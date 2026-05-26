@@ -1,7 +1,7 @@
-import { ArrowLeft, Calendar, AlertTriangle, MapPin, Clock } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
+import { ArrowLeft, Calendar, AlertTriangle, MapPin, Clock } from 'lucide-react-native';
 import {
-  Container,
+  Screen,
   PageHeader,
   HeaderInner,
   BackButton,
@@ -10,7 +10,7 @@ import {
   DateRow,
   DateText,
   Content,
-  StatsGrid,
+  StatsRow,
   StatItem,
   StatItemLabel,
   StatItemValue,
@@ -46,11 +46,10 @@ import {
   RespondedText,
   TipsCard,
   TipsTitle,
-  TipsList,
   TipItem,
   TipBullet,
   TipText,
-} from './styles';
+} from './styles.native';
 
 const fallIncidents = [
   {
@@ -92,7 +91,7 @@ export function FallsHistory() {
   const navigation = useNavigation<any>();
 
   return (
-    <Container>
+    <Screen>
       <PageHeader>
         <HeaderInner>
           <BackButton onPress={() => navigation.navigate('Dashboard')}>
@@ -108,7 +107,7 @@ export function FallsHistory() {
       </PageHeader>
 
       <Content>
-        <StatsGrid>
+        <StatsRow>
           <StatItem>
             <StatItemLabel>Total</StatItemLabel>
             <StatItemValue>3</StatItemValue>
@@ -117,11 +116,11 @@ export function FallsHistory() {
             <StatItemLabel>Este Mês</StatItemLabel>
             <StatItemValue $color="#ea580c">3</StatItemValue>
           </StatItem>
-          <StatItem>
+          <StatItem $isLast>
             <StatItemLabel>Média Mensal</StatItemLabel>
             <StatItemValue>2.5</StatItemValue>
           </StatItem>
-        </StatsGrid>
+        </StatsRow>
 
         <AlertCard>
           <AlertIconWrapper>
@@ -174,7 +173,7 @@ export function FallsHistory() {
                     <VitalLabel>Batimentos</VitalLabel>
                     <VitalValue>{incident.vitals.heartRate} bpm</VitalValue>
                   </VitalItem>
-                  <VitalItem>
+                  <VitalItem $isLast>
                     <VitalLabel>Pressão</VitalLabel>
                     <VitalValue>{incident.vitals.bloodPressure} mmHg</VitalValue>
                   </VitalItem>
@@ -186,35 +185,32 @@ export function FallsHistory() {
                 <NotesText>{incident.notes}</NotesText>
               </NotesSection>
 
-              {incident.responded && (
+              {incident.responded ? (
                 <RespondedRow>
                   <RespondedDot />
                   <RespondedText>Atendido</RespondedText>
                 </RespondedRow>
-              )}
+              ) : null}
             </IncidentCard>
           ))}
         </IncidentsList>
 
         <TipsCard>
           <TipsTitle>Dicas de Prevenção</TipsTitle>
-          <TipsList>
-            {[
-              'Remova tapetes soltos e obstáculos dos caminhos',
-              'Instale barras de apoio no banheiro',
-              'Mantenha boa iluminação em todos os ambientes',
-              'Use calçados antiderrapantes',
-              'Consulte um médico sobre medicamentos que causam tontura',
-            ].map((tip, i) => (
-              <TipItem key={i}>
-                <TipBullet>•</TipBullet>
-                <TipText>{tip}</TipText>
-              </TipItem>
-            ))}
-          </TipsList>
+          {[
+            'Remova tapetes soltos e obstáculos dos caminhos',
+            'Instale barras de apoio no banheiro',
+            'Mantenha boa iluminação em todos os ambientes',
+            'Use calçados antiderrapantes',
+            'Consulte um médico sobre medicamentos que causam tontura',
+          ].map((tip, i) => (
+            <TipItem key={i}>
+              <TipBullet>•</TipBullet>
+              <TipText>{tip}</TipText>
+            </TipItem>
+          ))}
         </TipsCard>
       </Content>
-
-    </Container>
+    </Screen>
   );
 }

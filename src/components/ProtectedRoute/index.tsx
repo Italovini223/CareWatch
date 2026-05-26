@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -12,22 +13,33 @@ const DEMO_USER = {
   createdAt: new Date().toISOString(),
 };
 
-function ensureDemoUser() {
-  const users = JSON.parse(localStorage.getItem('users') || '[]');
+async function ensureDemoUser() {
+  const usersRaw = await AsyncStorage.getItem('users');
+  const users = JSON.parse(usersRaw || '[]');
   if (!users.find((u: any) => u.email === DEMO_USER.email)) {
     users.push(DEMO_USER);
-    localStorage.setItem('users', JSON.stringify(users));
+    await AsyncStorage.setItem('users', JSON.stringify(users));
   }
 }
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+  const [ready, setReady] = useState(false);
 
-  if (!isAuthenticated) {
-    ensureDemoUser();
-    localStorage.setItem('isAuthenticated', 'true');
-    localStorage.setItem('currentUser', JSON.stringify(DEMO_USER));
-  }
+  useEffect(() => {
+    const checkAuth = async () => {
+      const isAuthenticated = (await AsyncStorage.getItem('isAuthenticated')) === 'true';
+      if (!isAuthenticated) {
+        await ensureDemoUser();
+        await AsyncStorage.setItem('isAuthenticated', 'true');
+        await AsyncStorage.setItem('currentUser', JSON.stringify(DEMO_USER));
+      }
+      setReady(true);
+    };
+
+    checkAuth();
+  }, []);
+
+  if (!ready) return null;
 
   return <>{children}</>;
 }

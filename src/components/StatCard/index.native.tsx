@@ -8,7 +8,7 @@ import {
   ValueRow,
   StatValue,
   StatUnit,
-} from './styles';
+} from './styles.native';
 
 interface StatCardProps {
   icon: LucideIcon;
@@ -37,7 +37,7 @@ export function StatCard({
           <StatLabel>{label}</StatLabel>
           <ValueRow>
             <StatValue>{value}</StatValue>
-            {unit && <StatUnit>{unit}</StatUnit>}
+            {unit ? <StatUnit>{unit}</StatUnit> : null}
           </ValueRow>
         </Info>
       </Row>

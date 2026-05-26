@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { Heart, Eye, EyeOff, LayoutGrid } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNavigation } from '@react-navigation/native';
+import { Heart, Eye, EyeOff, LayoutGrid } from 'lucide-react-native';
+import { toast } from '../../utils/toast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Input } from '../../components/Input';
 import { Label } from '../../components/Label';
 import {
@@ -30,30 +31,31 @@ import {
 } from './styles';
 
 export function Login() {
-  const navigate = useNavigate();
+  const navigation = useNavigation<any>();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!formData.email || !formData.password) {
       toast.error('Por favor, preencha todos os campos');
       return;
     }
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const usersRaw = await AsyncStorage.getItem('users');
+    const users = JSON.parse(usersRaw || '[]');
     const user = users.find(
       (u: any) => u.email === formData.email && u.password === formData.password
     );
     if (user) {
-      localStorage.setItem('isAuthenticated', 'true');
-      localStorage.setItem('currentUser', JSON.stringify(user));
+      await AsyncStorage.setItem('isAuthenticated', 'true');
+      await AsyncStorage.setItem('currentUser', JSON.stringify(user));
       toast.success('Login realizado com sucesso!');
-      navigate('/');
+      navigation.navigate('MainTabs', { screen: 'Dashboard' });
     } else {
       toast.error('Email ou senha incorretos');
     }
   };
 
-  const handleDemoLogin = () => {
+  const handleDemoLogin = async () => {
     const demoUser = {
       email: 'demo@carewatch.com',
       password: 'demo123',
@@ -61,15 +63,16 @@ export function Login() {
       name: 'Maria Silva',
       createdAt: new Date().toISOString(),
     };
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const usersRaw = await AsyncStorage.getItem('users');
+    const users = JSON.parse(usersRaw || '[]');
     if (!users.find((u: any) => u.email === demoUser.email)) {
       users.push(demoUser);
-      localStorage.setItem('users', JSON.stringify(users));
+      await AsyncStorage.setItem('users', JSON.stringify(users));
     }
-    localStorage.setItem('isAuthenticated', 'true');
-    localStorage.setItem('currentUser', JSON.stringify(demoUser));
+    await AsyncStorage.setItem('isAuthenticated', 'true');
+    await AsyncStorage.setItem('currentUser', JSON.stringify(demoUser));
     toast.success('Entrando como usuário demo!');
-    navigate('/');
+    navigation.navigate('MainTabs', { screen: 'Dashboard' });
   };
 
   return (
@@ -128,13 +131,13 @@ export function Login() {
           <FooterText>
             Não tem uma conta?{' '}
           </FooterText>
-          <FooterLink onPress={() => navigate('/register')}>
+          <FooterLink onPress={() => navigation.navigate('Register')}>
             <FooterLinkText>Cadastre-se</FooterLinkText>
           </FooterLink>
         </Footer>
 
         <Divider>
-          <PrototypeLink onPress={() => navigate('/screens')}>
+          <PrototypeLink onPress={() => navigation.navigate('ScreensOverview')}>
             <LayoutGrid size={16} color="#6B7280" />
             <PrototypeLinkText>Ver todas as telas do protótipo</PrototypeLinkText>
           </PrototypeLink>

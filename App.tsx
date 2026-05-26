@@ -1,28 +1,21 @@
-import { ThemeProvider } from 'styled-components';
-
-import { RouterProvider } from 'react-router';
-import { router } from './src/routers';
-
-import { Toaster } from 'sonner';
-
-
-import theme from './src/theme'
-
-import { StatusBar } from 'expo-status-bar';
-
+import { ThemeProvider } from 'styled-components/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Platform } from 'react-native';
+
+import { Routes } from './src/navigation';
+import theme from './src/theme';
 
 
 
 export default function App() {
+  const WebToaster = Platform.OS === 'web' ? require('sonner').Toaster : null;
+
   return (
     <SafeAreaProvider>
-
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-      <Toaster richColors position="top-center" />
-    </ThemeProvider>
-
+      <ThemeProvider theme={theme}>
+        <Routes />
+        {WebToaster ? <WebToaster richColors position="top-center" /> : null}
+      </ThemeProvider>
     </SafeAreaProvider>
   );
 }

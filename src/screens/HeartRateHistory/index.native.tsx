@@ -1,16 +1,9 @@
-import { ArrowLeft, Calendar } from 'lucide-react-native';
+import { Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { LineChart } from 'react-native-chart-kit';
+import { ArrowLeft, Calendar } from 'lucide-react-native';
 import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
-import {
-  Container,
+  Screen,
   PageHeader,
   HeaderInner,
   BackButton,
@@ -19,9 +12,9 @@ import {
   DateRow,
   DateText,
   Content,
-  ChartCard,
+  Card,
   CardTitle,
-  StatsGrid,
+  StatsRow,
   StatItem,
   StatItemLabel,
   StatItemValue,
@@ -34,7 +27,6 @@ import {
   StatusBadge,
   RefCard,
   RefTitle,
-  RefList,
   RefItem,
   RefDot,
   RefText,
@@ -45,7 +37,16 @@ import {
   ZonePercent,
   ProgressTrack,
   ProgressBar,
-} from './styles';
+} from './styles.native';
+
+const readings = [
+  { time: '21:30', bpm: 72, status: 'normal', activity: 'Repouso' },
+  { time: '18:45', bpm: 76, status: 'normal', activity: 'Caminhada leve' },
+  { time: '15:20', bpm: 85, status: 'warning', activity: 'Atividade moderada' },
+  { time: '12:10', bpm: 82, status: 'normal', activity: 'Pós-almoço' },
+  { time: '09:00', bpm: 78, status: 'normal', activity: 'Matinal' },
+  { time: '06:30', bpm: 70, status: 'normal', activity: 'Despertar' },
+];
 
 const mockData = [
   { time: '00:00', bpm: 68 },
@@ -58,29 +59,35 @@ const mockData = [
   { time: '21:00', bpm: 72 },
 ];
 
-const readings = [
-  { time: '21:30', bpm: 72, status: 'normal', activity: 'Repouso' },
-  { time: '18:45', bpm: 76, status: 'normal', activity: 'Caminhada leve' },
-  { time: '15:20', bpm: 85, status: 'warning', activity: 'Atividade moderada' },
-  { time: '12:10', bpm: 82, status: 'normal', activity: 'Pós-almoço' },
-  { time: '09:00', bpm: 78, status: 'normal', activity: 'Matinal' },
-  { time: '06:30', bpm: 70, status: 'normal', activity: 'Despertar' },
-];
-
 const getStatusLabel = (status: string) => {
   switch (status) {
-    case 'normal': return 'Normal';
-    case 'warning': return 'Atenção';
-    case 'danger': return 'Crítico';
-    default: return 'Desconhecido';
+    case 'normal':
+      return 'Normal';
+    case 'warning':
+      return 'Atenção';
+    case 'danger':
+      return 'Crítico';
+    default:
+      return 'Desconhecido';
   }
 };
 
 export function HeartRateHistory() {
   const navigation = useNavigation<any>();
+  const chartWidth = Dimensions.get('window').width - 32;
+  const chartData = {
+    labels: mockData.map((item) => item.time),
+    datasets: [
+      {
+        data: mockData.map((item) => item.bpm),
+        color: () => '#ef4444',
+        strokeWidth: 2,
+      },
+    ],
+  };
 
   return (
-    <Container>
+    <Screen>
       <PageHeader>
         <HeaderInner>
           <BackButton onPress={() => navigation.navigate('Dashboard')}>
@@ -103,33 +110,33 @@ export function HeartRateHistory() {
       </PageHeader>
 
       <Content>
-        <ChartCard>
+        <Card>
           <CardTitle>Histórico do Dia</CardTitle>
-          <ResponsiveContainer width="100%" height={250}>
-            <AreaChart data={mockData}>
-              <defs>
-                <linearGradient id="colorBpm" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#ef4444" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="time" style={{ fontSize: '12px' }} />
-              <YAxis style={{ fontSize: '12px' }} domain={[50, 100]} />
-              <Tooltip />
-              <Area
-                type="monotone"
-                dataKey="bpm"
-                stroke="#ef4444"
-                fill="url(#colorBpm)"
-                strokeWidth={2}
-                name="BPM"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </ChartCard>
+          <LineChart
+            data={chartData}
+            width={chartWidth}
+            height={220}
+            withDots={false}
+            withInnerLines
+            withOuterLines={false}
+            chartConfig={{
+              backgroundGradientFrom: '#ffffff',
+              backgroundGradientTo: '#ffffff',
+              decimalPlaces: 0,
+              color: (opacity = 1) => `rgba(239, 68, 68, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(100, 116, 139, ${opacity})`,
+              fillShadowGradient: '#ef4444',
+              fillShadowGradientOpacity: 0.25,
+              propsForBackgroundLines: {
+                strokeDasharray: '3 3',
+              },
+            }}
+            bezier
+            style={{ borderRadius: 12 }}
+          />
+        </Card>
 
-        <StatsGrid>
+        <StatsRow>
           <StatItem>
             <StatItemLabel>Média</StatItemLabel>
             <StatItemValue>74 bpm</StatItemValue>
@@ -138,16 +145,16 @@ export function HeartRateHistory() {
             <StatItemLabel>Mínima</StatItemLabel>
             <StatItemValue $color="#2563EB">65 bpm</StatItemValue>
           </StatItem>
-          <StatItem>
+          <StatItem $isLast>
             <StatItemLabel>Máxima</StatItemLabel>
             <StatItemValue $color="#DC2626">85 bpm</StatItemValue>
           </StatItem>
-        </StatsGrid>
+        </StatsRow>
 
         <ReadingsList>
           <CardTitle>Todas as Medições</CardTitle>
           {readings.map((reading, index) => (
-            <ReadingItem key={index}>
+            <ReadingItem key={index} $isLast={index === readings.length - 1}>
               <ReadingInfo>
                 <ReadingValue>{reading.bpm} bpm</ReadingValue>
                 <ReadingTime>{reading.time}</ReadingTime>
@@ -162,20 +169,18 @@ export function HeartRateHistory() {
 
         <RefCard>
           <RefTitle>Valores de Referência (Repouso)</RefTitle>
-          <RefList>
-            <RefItem>
-              <RefDot $color="#22c55e" />
-              <RefText>Normal: 60-90 bpm</RefText>
-            </RefItem>
-            <RefItem>
-              <RefDot $color="#eab308" />
-              <RefText>Atenção: 90-100 bpm ou {'<'} 60 bpm</RefText>
-            </RefItem>
-            <RefItem>
-              <RefDot $color="#ef4444" />
-              <RefText>Crítico: {'>'} 100 bpm ou {'<'} 50 bpm</RefText>
-            </RefItem>
-          </RefList>
+          <RefItem>
+            <RefDot $color="#22c55e" />
+            <RefText>Normal: 60-90 bpm</RefText>
+          </RefItem>
+          <RefItem>
+            <RefDot $color="#eab308" />
+            <RefText>Atenção: 90-100 bpm ou {'<'} 60 bpm</RefText>
+          </RefItem>
+          <RefItem>
+            <RefDot $color="#ef4444" />
+            <RefText>Crítico: {'>'} 100 bpm ou {'<'} 50 bpm</RefText>
+          </RefItem>
         </RefCard>
 
         <ZonesCard>
@@ -204,13 +209,11 @@ export function HeartRateHistory() {
               <ZonePercent>7% do tempo</ZonePercent>
             </ZoneRow>
             <ProgressTrack>
-              <ProgressBar $width="7%" $color="#eab308" />
+              <ProgressBar $width="7%" $color="#f59e0b" />
             </ProgressTrack>
           </ZoneItem>
         </ZonesCard>
       </Content>
-
-
-    </Container>
+    </Screen>
   );
 }

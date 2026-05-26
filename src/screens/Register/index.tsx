@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { Heart, Eye, EyeOff, Watch, LayoutGrid, User, Calendar } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNavigation } from '@react-navigation/native';
+import { Heart, Eye, EyeOff, Watch, LayoutGrid, User, Calendar } from 'lucide-react-native';
+import { toast } from '../../utils/toast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Input } from '../../components/Input';
 import { Label } from '../../components/Label';
 import {
@@ -55,7 +56,7 @@ function calcularIdade(dataNascimento: string): number | null {
 }
 
 export function Register() {
-  const navigate = useNavigate();
+  const navigation = useNavigation<any>();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -69,7 +70,7 @@ export function Register() {
 
   const idade = calcularIdade(formData.birthDate);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       !formData.email ||
       !formData.password ||
@@ -107,7 +108,8 @@ export function Register() {
       toast.error('Serial da pulseira inválido. Formato: XXXX-XXXX-XXXX');
       return;
     }
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const usersRaw = await AsyncStorage.getItem('users');
+    const users = JSON.parse(usersRaw || '[]');
     if (users.some((u: any) => u.email === formData.email)) {
       toast.error('Este email já está cadastrado');
       return;
@@ -126,11 +128,11 @@ export function Register() {
       createdAt: new Date().toISOString(),
     };
     users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
+    await AsyncStorage.setItem('users', JSON.stringify(users));
     toast.success('Conta criada com sucesso!');
-    localStorage.setItem('isAuthenticated', 'true');
-    localStorage.setItem('currentUser', JSON.stringify(newUser));
-    navigate('/');
+    await AsyncStorage.setItem('isAuthenticated', 'true');
+    await AsyncStorage.setItem('currentUser', JSON.stringify(newUser));
+    navigation.navigate('MainTabs', { screen: 'Dashboard' });
   };
 
   const handleSerialChange = (text: string) => {
@@ -294,7 +296,7 @@ export function Register() {
 
         <Footer>
           <FooterText>Já tem uma conta? </FooterText>
-          <FooterLink onPress={() => navigate('/login')}>
+          <FooterLink onPress={() => navigation.navigate('Login')}>
             <FooterLinkText>Faça login</FooterLinkText>
           </FooterLink>
         </Footer>
@@ -304,7 +306,7 @@ export function Register() {
             <SerialHintTitle>Serial de exemplo para testes:</SerialHintTitle>
             <SerialHintValue>CW01-2024-A1B2</SerialHintValue>
           </SerialHintBox>
-          <PrototypeLink onPress={() => navigate('/screens')}>
+          <PrototypeLink onPress={() => navigation.navigate('ScreensOverview')}>
             <LayoutGrid size={16} color="#6B7280" />
             <PrototypeLinkText>Ver todas as telas do protótipo</PrototypeLinkText>
           </PrototypeLink>

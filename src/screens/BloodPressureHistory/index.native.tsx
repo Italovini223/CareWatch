@@ -1,17 +1,9 @@
-import { ArrowLeft, Calendar } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Dimensions } from 'react-native';
+import { LineChart } from 'react-native-chart-kit';
+import { ArrowLeft, Calendar } from 'lucide-react-native';
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
-import {
-  Container,
+  Screen,
   PageHeader,
   HeaderInner,
   BackButton,
@@ -20,9 +12,9 @@ import {
   DateRow,
   DateText,
   Content,
-  ChartCard,
+  Card,
   CardTitle,
-  StatsGrid,
+  StatsRow,
   StatItem,
   StatItemLabel,
   StatItemValue,
@@ -34,11 +26,10 @@ import {
   StatusBadge,
   RefCard,
   RefTitle,
-  RefList,
   RefItem,
   RefDot,
   RefText,
-} from './styles';
+} from './styles.native';
 
 const mockData = [
   { time: '00:00', systolic: 118, diastolic: 78 },
@@ -62,18 +53,39 @@ const readings = [
 
 const getStatusLabel = (status: string) => {
   switch (status) {
-    case 'normal': return 'Normal';
-    case 'warning': return 'Atenção';
-    case 'danger': return 'Crítico';
-    default: return 'Desconhecido';
+    case 'normal':
+      return 'Normal';
+    case 'warning':
+      return 'Atenção';
+    case 'danger':
+      return 'Crítico';
+    default:
+      return 'Desconhecido';
   }
 };
 
 export function BloodPressureHistory() {
   const navigation = useNavigation<any>();
+  const chartWidth = Dimensions.get('window').width - 32;
+  const chartData = {
+    labels: mockData.map((item) => item.time),
+    datasets: [
+      {
+        data: mockData.map((item) => item.systolic),
+        color: () => '#ef4444',
+        strokeWidth: 2,
+      },
+      {
+        data: mockData.map((item) => item.diastolic),
+        color: () => '#3b82f6',
+        strokeWidth: 2,
+      },
+    ],
+    legend: ['Sistólica', 'Diastólica'],
+  };
 
   return (
-    <Container>
+    <Screen>
       <PageHeader>
         <HeaderInner>
           <BackButton onPress={() => navigation.navigate('Dashboard')}>
@@ -96,34 +108,31 @@ export function BloodPressureHistory() {
       </PageHeader>
 
       <Content>
-        <ChartCard>
+        <Card>
           <CardTitle>Histórico do Dia</CardTitle>
-          <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={mockData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="time" style={{ fontSize: '12px' }} />
-              <YAxis style={{ fontSize: '12px' }} domain={[60, 150]} />
-              <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="systolic"
-                stroke="#ef4444"
-                name="Sistólica"
-                strokeWidth={2}
-              />
-              <Line
-                type="monotone"
-                dataKey="diastolic"
-                stroke="#3b82f6"
-                name="Diastólica"
-                strokeWidth={2}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </ChartCard>
+          <LineChart
+            data={chartData}
+            width={chartWidth}
+            height={220}
+            withDots={false}
+            withInnerLines
+            withOuterLines={false}
+            chartConfig={{
+              backgroundGradientFrom: '#ffffff',
+              backgroundGradientTo: '#ffffff',
+              decimalPlaces: 0,
+              color: (opacity = 1) => `rgba(148, 163, 184, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(100, 116, 139, ${opacity})`,
+              propsForBackgroundLines: {
+                strokeDasharray: '3 3',
+              },
+            }}
+            bezier={false}
+            style={{ borderRadius: 12 }}
+          />
+        </Card>
 
-        <StatsGrid>
+        <StatsRow>
           <StatItem>
             <StatItemLabel>Média</StatItemLabel>
             <StatItemValue>124/82</StatItemValue>
@@ -132,16 +141,16 @@ export function BloodPressureHistory() {
             <StatItemLabel>Mínima</StatItemLabel>
             <StatItemValue $color="#16A34A">115/76</StatItemValue>
           </StatItem>
-          <StatItem>
+          <StatItem $isLast>
             <StatItemLabel>Máxima</StatItemLabel>
             <StatItemValue $color="#CA8A04">130/86</StatItemValue>
           </StatItem>
-        </StatsGrid>
+        </StatsRow>
 
         <ReadingsList>
           <CardTitle>Todas as Medições</CardTitle>
           {readings.map((reading, index) => (
-            <ReadingItem key={index}>
+            <ReadingItem key={index} $isLast={index === readings.length - 1}>
               <ReadingInfo>
                 <ReadingValue>
                   {reading.systolic}/{reading.diastolic} mmHg
@@ -157,23 +166,20 @@ export function BloodPressureHistory() {
 
         <RefCard>
           <RefTitle>Valores de Referência</RefTitle>
-          <RefList>
-            <RefItem>
-              <RefDot $color="#22c55e" />
-              <RefText>Normal: {'<'} 130/85 mmHg</RefText>
-            </RefItem>
-            <RefItem>
-              <RefDot $color="#eab308" />
-              <RefText>Atenção: 130-140/85-90 mmHg</RefText>
-            </RefItem>
-            <RefItem>
-              <RefDot $color="#ef4444" />
-              <RefText>Crítico: {'>'} 140/90 mmHg</RefText>
-            </RefItem>
-          </RefList>
+          <RefItem>
+            <RefDot $color="#22c55e" />
+            <RefText>Normal: {'<'} 130/85 mmHg</RefText>
+          </RefItem>
+          <RefItem>
+            <RefDot $color="#eab308" />
+            <RefText>Atenção: 130-140/85-90 mmHg</RefText>
+          </RefItem>
+          <RefItem>
+            <RefDot $color="#ef4444" />
+            <RefText>Crítico: {'>'} 140/90 mmHg</RefText>
+          </RefItem>
         </RefCard>
       </Content>
-
-    </Container>
+    </Screen>
   );
 }
