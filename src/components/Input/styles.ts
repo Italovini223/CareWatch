@@ -6,7 +6,7 @@ export const StyledInput = styled.TextInput`
   border: 1px solid ${({ theme }) => theme.COLORS.GRAY[200]};
   background-color: ${({ theme }) => theme.COLORS.GRAY[100]};
   padding: 0.5rem 0.75rem;
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
   line-height: 1.5;

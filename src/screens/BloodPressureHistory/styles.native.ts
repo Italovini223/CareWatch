@@ -3,10 +3,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export const Screen = styled.ScrollView.attrs({
   contentContainerStyle: {
-    paddingBottom: 32,
+    paddingBottom: 80,
   },
 })`
   flex: 1;
+  position: relative;
   background-color: ${({ theme }) => theme.COLORS.GRAY[50]};
 `;
 
@@ -32,12 +33,12 @@ export const BackButtonText = styled.Text`
   margin-left: 8px;
   color: ${({ theme }) => theme.COLORS.WHITE};
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
 `;
 
 export const PageTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES['2xl']};
+  font-size: ${({ theme }) => theme.FONT_SIZES['2xl']}px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ theme }) => theme.COLORS.WHITE};
   margin-bottom: 8px;
@@ -51,7 +52,7 @@ export const DateRow = styled.View`
 export const DateText = styled.Text`
   margin-left: 8px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: rgba(219, 234, 254, 1);
 `;
 
@@ -69,11 +70,6 @@ export const Card = styled.View`
   border-color: rgba(0, 0, 0, 0.08);
   padding: 16px;
   margin-bottom: 16px;
-  shadow-color: #000000;
-  shadow-offset: 0px 2px;
-  shadow-opacity: 0.08;
-  shadow-radius: 8px;
-  elevation: 2;
 `;
 
 export const CardTitle = styled.Text`
@@ -97,17 +93,12 @@ export const StatItem = styled.View<{ $isLast?: boolean }>`
   border-color: rgba(0, 0, 0, 0.08);
   padding: 12px;
   align-items: center;
-  margin-right: ${({ $isLast }) => ($isLast ? 0 : 8)}px;
-  shadow-color: #000000;
-  shadow-offset: 0px 2px;
-  shadow-opacity: 0.08;
-  shadow-radius: 8px;
-  elevation: 2;
+  margin-right: ${({ $isLast }) => ($isLast ? 0 : 12)}px;
 `;
 
 export const StatItemLabel = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
 `;
 
@@ -126,18 +117,13 @@ export const ReadingsList = styled.View`
   border-color: rgba(0, 0, 0, 0.08);
   padding: 16px;
   margin-bottom: 16px;
-  shadow-color: #000000;
-  shadow-offset: 0px 2px;
-  shadow-opacity: 0.08;
-  shadow-radius: 8px;
-  elevation: 2;
+
 `;
 
 export const ReadingItem = styled.View<{ $isLast?: boolean }>`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding-vertical: 12px;
   border-bottom-width: ${({ $isLast }) => ($isLast ? 0 : 1)}px;
   border-bottom-color: ${({ theme }) => theme.COLORS.GRAY[200]};
 `;
@@ -153,14 +139,14 @@ export const ReadingValue = styled.Text`
 export const ReadingTime = styled.Text`
   margin-top: 2px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
 `;
 
 export const StatusBadge = styled.Text<{ $status: string }>`
   border-radius: 999px;
   padding: 4px 10px;
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
 
@@ -195,7 +181,7 @@ export const RefCard = styled.View`
 export const RefTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.BLUE[900]};
   margin-bottom: 8px;
 `;
@@ -216,6 +202,6 @@ export const RefDot = styled.View<{ $color: string }>`
 
 export const RefText = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.BLUE[700]};
 `;

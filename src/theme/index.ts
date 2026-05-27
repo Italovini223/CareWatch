@@ -105,19 +105,19 @@ const theme = {
   FONTS: {
     /**
      * Fonte decorativa — usada no logotipo "CareWatch" e títulos especiais.
-     * Equivalente a SendFlowers no tema original.
+     * Mantida como fallback usando Poppins sem quebra visual.
      */
-    send_flowers: 'SendFlowers_400Regular',
+    send_flowers: 'Poppins_600SemiBold',
 
     /**
      * Fonte principal sem serifa — corpo de texto, labels e inputs.
      */
-    Sansation_Regular: 'Sansation_Regular',
+    Sansation_Regular: 'Poppins_400Regular',
 
     /**
      * Fonte principal sem serifa — negrito — títulos, valores de métricas e botões.
      */
-    Sansation_Bold: 'Sansation_Bold',
+    Sansation_Bold: 'Poppins_700Bold',
   },
 
   // ─────────────────────────────────────────────
@@ -125,28 +125,28 @@ const theme = {
   // ─────────────────────────────────────────────
   FONT_SIZES: {
     /** 10px — informações muito pequenas, timestamps */
-    xxs:  '0.625rem',
+    xxs:  10,
 
     /** 12px — labels auxiliares, hints, textos de apoio (text-xs) */
-    xs:   '0.75rem',
+    xs:   12,
 
     /** 14px — body secundário, descrições, rótulos de formulário (text-sm) */
-    sm:   '0.875rem',
+    sm:   14,
 
     /** 16px — body principal, inputs, botões (text-base) */
-    base: '1rem',
+    base: 16,
 
     /** 18px — subtítulos de seção, cabeçalhos de card (text-lg) */
-    lg:   '1.125rem',
+    lg:   18,
 
     /** 20px — títulos de página secundários (text-xl) */
-    xl:   '1.25rem',
+    xl:   20,
 
     /** 24px — valores principais de métricas, títulos de tela (text-2xl) */
-    '2xl': '1.5rem',
+    '2xl': 24,
 
     /** 30px — título principal "CareWatch" / "Criar Conta" (text-3xl) */
-    '3xl': '1.875rem',
+    '3xl': 30,
   },
 
   // ─────────────────────────────────────────────
@@ -163,11 +163,11 @@ const theme = {
   // ESPAÇAMENTOS / RAIOS DE BORDA
   // ─────────────────────────────────────────────
   BORDER_RADIUS: {
-    sm:   '0.375rem',  // 6px  — inputs, badges
-    md:   '0.5rem',    // 8px  — cards internos, botões
-    lg:   '0.75rem',   // 12px — cards principais, alertas
-    xl:   '1rem',      // 16px — modais, overlays
-    full: '9999px',    // Círculos — avatares, ícones arredondados
+    sm:   6,           // 6px  — inputs, badges
+    md:   8,           // 8px  — cards internos, botões
+    lg:   12,          // 12px — cards principais, alertas
+    xl:   16,          // 16px — modais, overlays
+    full: 9999,        // Círculos — avatares, ícones arredondados
   },
 
   // ─────────────────────────────────────────────

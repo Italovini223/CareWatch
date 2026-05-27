@@ -24,7 +24,6 @@ export const NavInner = styled.View`
 export const NavButton = styled.TouchableOpacity<{ $active: boolean }>`
   flex-direction: column;
   align-items: center;
-  gap: 4px;
   padding: 8px 12px;
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
   background-color: transparent;
@@ -40,6 +39,7 @@ export const NavButton = styled.TouchableOpacity<{ $active: boolean }>`
 `;
 
 export const NavLabel = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  margin-top: 4px;
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
 `;

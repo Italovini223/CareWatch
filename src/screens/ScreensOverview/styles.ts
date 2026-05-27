@@ -36,7 +36,7 @@ export const LogoInfo = styled.View``;
 
 export const AppTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES['2xl']};
+  font-size: ${({ theme }) => theme.FONT_SIZES['2xl']}px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.bold};
   color: ${({ theme }) => theme.COLORS.WHITE};
   display: block;
@@ -44,7 +44,7 @@ export const AppTitle = styled.Text`
 
 export const AppSubtitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: #a5b4fc;
   display: block;
 `;
@@ -70,7 +70,7 @@ export const InfoBannerBody = styled.View`
 
 export const InfoBannerTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
   color: ${({ theme }) => theme.COLORS.WHITE};
   display: block;
@@ -79,7 +79,7 @@ export const InfoBannerTitle = styled.Text`
 
 export const InfoBannerText = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: #c7d2fe;
   line-height: 1.625;
   display: block;
@@ -113,7 +113,7 @@ export const DividerLine = styled.View`
 
 export const GroupLabel = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: #a5b4fc;
   text-transform: uppercase;
@@ -173,13 +173,13 @@ export const ScreenNameRow = styled.View`
 export const ScreenName = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.WHITE};
 `;
 
 export const ScreenTag = styled.Text<{ $accentBg: string; $accentText: string }>`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   padding: 0.125rem 0.5rem;
   border-radius: 9999px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
@@ -189,7 +189,7 @@ export const ScreenTag = styled.Text<{ $accentBg: string; $accentText: string }>
 
 export const ScreenDescription = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: #a5b4fc;
   display: block;
   margin-top: 0.25rem;
@@ -198,7 +198,7 @@ export const ScreenDescription = styled.Text`
 
 export const ScreenPath = styled.Text`
   font-family: monospace;
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: #818cf8;
   opacity: 0.6;
   display: block;
@@ -218,7 +218,7 @@ export const CredentialsBox = styled.View`
 
 export const CredentialsTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ theme }) => theme.COLORS.WHITE};
   display: block;
@@ -240,12 +240,12 @@ export const CredentialRow = styled.View`
 
 export const CredentialKey = styled.Text`
   font-family: monospace;
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: #a5b4fc;
 `;
 
 export const CredentialValue = styled.Text`
   font-family: monospace;
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.WHITE};
 `;

@@ -8,11 +8,7 @@ export const Container = styled.TouchableOpacity`
   border-width: 1px;
   border-color: rgba(0, 0, 0, 0.08);
   padding: 16px;
-  shadow-color: #000000;
-  shadow-offset: 0px 2px;
-  shadow-opacity: 0.08;
-  shadow-radius: 8px;
-  elevation: 2;
+
 `;
 
 export const Row = styled.View`
@@ -52,7 +48,7 @@ export const Info = styled.View`
 `;
 
 export const StatLabel = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
 `;
@@ -64,7 +60,7 @@ export const ValueRow = styled.View`
 `;
 
 export const StatValue = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES['2xl']};
+  font-size: ${({ theme }) => theme.FONT_SIZES['2xl']}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
@@ -72,7 +68,7 @@ export const StatValue = styled.Text`
 
 export const StatUnit = styled.Text`
   margin-left: 4px;
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   color: ${({ theme }) => theme.COLORS.GRAY[500]};
 `;

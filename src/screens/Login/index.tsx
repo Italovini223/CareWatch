@@ -5,6 +5,7 @@ import { toast } from '../../utils/toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Input } from '../../components/Input';
 import { Label } from '../../components/Label';
+import { UserNavigatorRoutesProps } from '../../navigation/user.routes';
 import {
   Container,
   CardBox,
@@ -31,7 +32,7 @@ import {
 } from './styles';
 
 export function Login() {
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<UserNavigatorRoutesProps>();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
 
@@ -49,7 +50,7 @@ export function Login() {
       await AsyncStorage.setItem('isAuthenticated', 'true');
       await AsyncStorage.setItem('currentUser', JSON.stringify(user));
       toast.success('Login realizado com sucesso!');
-      navigation.navigate('MainTabs', { screen: 'Dashboard' });
+      //navigation.navigate('MainTabs', { screen: '' });
     } else {
       toast.error('Email ou senha incorretos');
     }
@@ -72,7 +73,7 @@ export function Login() {
     await AsyncStorage.setItem('isAuthenticated', 'true');
     await AsyncStorage.setItem('currentUser', JSON.stringify(demoUser));
     toast.success('Entrando como usuário demo!');
-    navigation.navigate('MainTabs', { screen: 'Dashboard' });
+    //navigation.navigate('MainTabs', { screen: 'Dashboard' });
   };
 
   return (
@@ -137,7 +138,7 @@ export function Login() {
         </Footer>
 
         <Divider>
-          <PrototypeLink onPress={() => navigation.navigate('ScreensOverview')}>
+          <PrototypeLink onPress={() => navigation.navigate('Register')}>
             <LayoutGrid size={16} color="#6B7280" />
             <PrototypeLinkText>Ver todas as telas do protótipo</PrototypeLinkText>
           </PrototypeLink>

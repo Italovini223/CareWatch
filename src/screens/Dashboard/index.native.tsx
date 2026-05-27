@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { toast } from '../../utils/toast';
 import { StatCard } from '../../components/StatCard';
 import { FallAlert } from '../../components/FallAlert';
+import { Navigation } from '../../components/Navigation';
 import {
   Screen,
   PageHeader,
@@ -201,6 +202,8 @@ export function Dashboard() {
           </LogoutButton>
         </LogoutArea>
       </Content>
+
+      <Navigation />
     </Screen>
   );
 }

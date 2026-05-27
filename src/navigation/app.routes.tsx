@@ -1,11 +1,10 @@
 import { createBottomTabNavigator, BottomTabNavigationProp } from "@react-navigation/bottom-tabs"
 import { useTheme } from "styled-components/native"
-import { Platform } from "react-native"
 
-import { Dashboard } from "../screens/Dashboard"
-import { BloodPressureHistory } from "../screens/BloodPressureHistory"
-import { HeartRateHistory } from "../screens/HeartRateHistory"
-import { FallsHistory } from "../screens/FallsHistory"
+import { Dashboard } from "../screens/Dashboard/index.native"
+import { BloodPressureHistory } from "../screens/BloodPressureHistory/index.native"
+import { HeartRateHistory } from "../screens/HeartRateHistory/index.native"
+import { FallsHistory } from "../screens/FallsHistory/index.native"
 
 import { Home, Activity, Heart, AlertTriangle } from 'lucide-react-native';
 
@@ -33,12 +32,8 @@ export function AppRoutes() {
         tabBarInactiveTintColor: COLORS.GRAY[400],
         tabBarActiveTintColor: COLORS.BLUE[600],
         tabBarStyle: {
-          backgroundColor: COLORS.WHITE,
-          borderTopWidth: 0,
-          height: Platform.OS === 'android' ? 'auto' : 96,
-          paddingBottom: 30,
-          paddingTop: 30,
-        }
+          display: 'none',
+        },
       }}
     >
 

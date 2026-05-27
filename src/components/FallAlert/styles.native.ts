@@ -14,11 +14,6 @@ export const AlertBox = styled.View`
   padding: 16px;
   flex-direction: row;
   align-items: flex-start;
-  shadow-color: #000000;
-  shadow-offset: 0px 4px;
-  shadow-opacity: 0.2;
-  shadow-radius: 10px;
-  elevation: 4;
 `;
 
 export const AlertIconWrapper = styled.View`
@@ -35,21 +30,21 @@ export const AlertContent = styled.View`
 export const AlertTitle = styled.Text`
   color: #ffffff;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   margin-bottom: 4px;
 `;
 
 export const AlertMessage = styled.Text`
   color: #ffffff;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   margin-bottom: 4px;
 `;
 
 export const AlertHint = styled.Text`
   color: rgba(255, 255, 255, 0.85);
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
 `;
 
 export const DismissButton = styled.TouchableOpacity`

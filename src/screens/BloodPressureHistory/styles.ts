@@ -32,12 +32,12 @@ export const BackButton = styled.TouchableOpacity`
 export const BackButtonText = styled.Text`
   color: ${({ theme }) => theme.COLORS.WHITE};
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
 `;
 
 export const PageTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES['2xl']};
+  font-size: ${({ theme }) => theme.FONT_SIZES['2xl']}px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ theme }) => theme.COLORS.WHITE};
   display: block;
@@ -53,7 +53,7 @@ export const DateRow = styled.View`
 
 export const DateText = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: rgba(219, 234, 254, 1);
 `;
 

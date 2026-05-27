@@ -3,10 +3,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export const Screen = styled.ScrollView.attrs({
   contentContainerStyle: {
-    paddingBottom: 32,
+    paddingBottom: 80,
   },
 })`
   flex: 1;
+  position: relative;
   background-color: ${({ theme }) => theme.COLORS.GRAY[50]};
 `;
 
@@ -97,7 +98,7 @@ export const StatItem = styled.View<{ $isLast?: boolean }>`
   border-color: rgba(0, 0, 0, 0.08);
   padding: 12px;
   align-items: center;
-  margin-right: ${({ $isLast }) => ($isLast ? 0 : 8)}px;
+  margin-right: ${({ $isLast }) => ($isLast ? 0 : 12)}px;
   shadow-color: #000000;
   shadow-offset: 0px 2px;
   shadow-opacity: 0.08;
@@ -248,30 +249,31 @@ export const ZoneItem = styled.View`
 export const ZoneRow = styled.View`
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 4px;
 `;
 
 export const ZoneLabel = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-size: ${({ theme }) => theme.FONT_SIZES.sm};
-  color: ${({ theme }) => theme.COLORS.GRAY[700]};
+  color: ${({ theme }) => theme.COLORS.GRAY[600]};
 `;
 
 export const ZonePercent = styled.Text`
-  font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
+  font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-size: ${({ theme }) => theme.FONT_SIZES.sm};
-  color: ${({ theme }) => theme.COLORS.GRAY[500]};
+  color: ${({ theme }) => theme.COLORS.GRAY[900]};
 `;
 
 export const ProgressTrack = styled.View`
-  margin-top: 8px;
-  height: 6px;
+  margin-top: 4px;
+  height: 8px;
   background-color: ${({ theme }) => theme.COLORS.GRAY[200]};
   border-radius: 999px;
   overflow: hidden;
 `;
 
 export const ProgressBar = styled.View<{ $width: string; $color: string }>`
-  height: 6px;
+  height: 8px;
   width: ${({ $width }) => $width};
   background-color: ${({ $color }) => $color};
 `;

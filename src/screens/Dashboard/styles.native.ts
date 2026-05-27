@@ -4,7 +4,7 @@ import { Animated } from 'react-native';
 
 export const Screen = styled.ScrollView.attrs({
   contentContainerStyle: {
-    paddingBottom: 32,
+    paddingBottom: 80,
   },
 })`
   flex: 1;
@@ -152,7 +152,7 @@ export const QuickStatCard = styled.View<{ $isLast?: boolean }>`
   border-color: rgba(0, 0, 0, 0.08);
   padding: 12px;
   align-items: center;
-  margin-right: ${({ $isLast }) => ($isLast ? 0 : 8)}px;
+  margin-right: ${({ $isLast }) => ($isLast ? 0 : 12)}px;
   shadow-color: #000000;
   shadow-offset: 0px 2px;
   shadow-opacity: 0.08;

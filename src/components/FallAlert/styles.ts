@@ -36,21 +36,21 @@ export const AlertContent = styled.View`
 export const AlertTitle = styled.TextInput`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.lg};
+  font-size: ${({ theme }) => theme.FONT_SIZES.lg}px;
   color: ${({ theme }) => theme.COLORS.WHITE};
   margin: 0 0 0.25rem;
 `;
 
 export const AlertMessage = styled.TextInput`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.WHITE};
   margin: 0 0 0.5rem;
 `;
 
 export const AlertHint = styled.TextInput`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.WHITE};
   opacity: 0.9;
   margin: 0;

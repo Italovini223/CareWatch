@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { ArrowLeft, Calendar } from 'lucide-react-native';
+import { Navigation } from '../../components/Navigation';
 import {
   Screen,
   PageHeader,
@@ -128,7 +129,6 @@ export function BloodPressureHistory() {
               },
             }}
             bezier={false}
-            style={{ borderRadius: 12 }}
           />
         </Card>
 
@@ -180,6 +180,8 @@ export function BloodPressureHistory() {
           </RefItem>
         </RefCard>
       </Content>
+
+      <Navigation />
     </Screen>
   );
 }

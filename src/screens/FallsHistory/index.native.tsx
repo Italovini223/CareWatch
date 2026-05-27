@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { ArrowLeft, Calendar, AlertTriangle, MapPin, Clock } from 'lucide-react-native';
+import { Navigation } from '../../components/Navigation';
 import {
   Screen,
   PageHeader,
@@ -211,6 +212,8 @@ export function FallsHistory() {
           ))}
         </TipsCard>
       </Content>
+
+      <Navigation />
     </Screen>
   );
 }

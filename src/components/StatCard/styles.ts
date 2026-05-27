@@ -53,7 +53,7 @@ export const Info = styled.View`
 `;
 
 export const StatLabel = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
   margin: 0;
@@ -66,14 +66,14 @@ export const ValueRow = styled.View`
 `;
 
 export const StatValue = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES['2xl']};
+  font-size: ${({ theme }) => theme.FONT_SIZES['2xl']}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
 `;
 
 export const StatUnit = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   color: ${({ theme }) => theme.COLORS.GRAY[500]};
 `;

@@ -14,7 +14,7 @@ export const Container = styled.TouchableOpacity<ButtonProps>`
   justify-content: center;
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
   padding: 0.5rem 1rem;
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
   cursor: pointer;

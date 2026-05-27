@@ -2,6 +2,7 @@ import { Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { LineChart } from 'react-native-chart-kit';
 import { ArrowLeft, Calendar } from 'lucide-react-native';
+import { Navigation } from '../../components/Navigation';
 import {
   Screen,
   PageHeader,
@@ -132,7 +133,6 @@ export function HeartRateHistory() {
               },
             }}
             bezier
-            style={{ borderRadius: 12 }}
           />
         </Card>
 
@@ -214,6 +214,8 @@ export function HeartRateHistory() {
           </ZoneItem>
         </ZonesCard>
       </Content>
+
+      <Navigation />
     </Screen>
   );
 }

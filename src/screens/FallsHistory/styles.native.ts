@@ -3,10 +3,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export const Screen = styled.ScrollView.attrs({
   contentContainerStyle: {
-    paddingBottom: 32,
+    paddingBottom: 80,
   },
 })`
   flex: 1;
+  position: relative;
   background-color: ${({ theme }) => theme.COLORS.GRAY[50]};
 `;
 
@@ -76,7 +77,7 @@ export const StatItem = styled.View<{ $isLast?: boolean }>`
   border-color: rgba(0, 0, 0, 0.08);
   padding: 12px;
   align-items: center;
-  margin-right: ${({ $isLast }) => ($isLast ? 0 : 8)}px;
+  margin-right: ${({ $isLast }) => ($isLast ? 0 : 12)}px;
   shadow-color: #000000;
   shadow-offset: 0px 2px;
   shadow-opacity: 0.08;
@@ -139,7 +140,7 @@ export const SectionTitle = styled.Text`
   font-size: ${({ theme }) => theme.FONT_SIZES.lg};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
-  margin-bottom: 12px;
+  margin-bottom: 0;
 `;
 
 export const IncidentsList = styled.View``;
@@ -273,13 +274,15 @@ export const VitalValue = styled.Text`
 `;
 
 export const NotesSection = styled.View`
-  margin-bottom: 12px;
+  border-top-width: 1px;
+  border-top-color: ${({ theme }) => theme.COLORS.GRAY[200]};
+  padding-top: 12px;
 `;
 
 export const NotesLabel = styled.Text`
-  font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
-  color: ${({ theme }) => theme.COLORS.GRAY[900]};
+  font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  color: ${({ theme }) => theme.COLORS.GRAY[600]};
   margin-bottom: 4px;
 `;
 
@@ -292,6 +295,7 @@ export const NotesText = styled.Text`
 export const RespondedRow = styled.View`
   flex-direction: row;
   align-items: center;
+  margin-top: 12px;
 `;
 
 export const RespondedDot = styled.View`
@@ -305,7 +309,8 @@ export const RespondedDot = styled.View`
 export const RespondedText = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-size: ${({ theme }) => theme.FONT_SIZES.xs};
-  color: ${({ theme }) => theme.COLORS.GRAY[600]};
+  font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
+  color: ${({ theme }) => theme.COLORS.GREEN[700]};
 `;
 
 export const TipsCard = styled.View`
@@ -335,12 +340,12 @@ export const TipItem = styled.View`
 
 export const TipBullet = styled.Text`
   margin-right: 8px;
-  color: ${({ theme }) => theme.COLORS.GRAY[500]};
+  color: ${({ theme }) => theme.COLORS.BLUE[600]};
 `;
 
 export const TipText = styled.Text`
   flex: 1;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
   color: ${({ theme }) => theme.COLORS.GRAY[700]};
 `;
