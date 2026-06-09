@@ -74,7 +74,7 @@ export const StatsGrid = styled.View`
 
 export const StatItem = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: ${({ theme }) => theme.SHADOWS.sm};
   padding: 0.75rem;
@@ -102,7 +102,7 @@ export const StatItemValue = styled.Text<{ $color?: string }>`
 export const AlertCard = styled.View`
   background-color: #fff7ed;
   border: 1px solid #fdba74;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   padding: 1rem;
   display: flex;
   flex-direction: row;
@@ -154,7 +154,7 @@ export const IncidentsList = styled.View`
 
 export const IncidentCard = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: ${({ theme }) => theme.SHADOWS.sm};
   padding: 1rem;
@@ -249,7 +249,7 @@ export const IncidentMetaText = styled.Text`
 
 export const VitalsBox = styled.View`
   background-color: ${({ theme }) => theme.COLORS.GRAY[50]};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   padding: 0.75rem;
   margin-bottom: 0.75rem;
 `;
@@ -329,7 +329,7 @@ export const RespondedText = styled.Text`
 
 export const TipsCard = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: ${({ theme }) => theme.SHADOWS.sm};
   padding: 1rem;

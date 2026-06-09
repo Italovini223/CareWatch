@@ -1,5 +1,6 @@
 import{ DefaultTheme, NavigationContainer } from '@react-navigation/native'
 import { AppRoutes } from './app.routes'
+import { UserRoutes  } from './user.routes'
 
 import { useTheme } from 'styled-components/native'
 

@@ -68,7 +68,7 @@ export const Content = styled.View`
 
 export const ChartCard = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: ${({ theme }) => theme.SHADOWS.sm};
   padding: 1rem;
@@ -90,7 +90,7 @@ export const StatsGrid = styled.View`
 
 export const StatItem = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: ${({ theme }) => theme.SHADOWS.sm};
   padding: 0.75rem;
@@ -117,7 +117,7 @@ export const StatItemValue = styled.Text<{ $color?: string }>`
 
 export const ReadingsList = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: ${({ theme }) => theme.SHADOWS.sm};
   padding: 1rem;
@@ -182,7 +182,7 @@ export const StatusBadge = styled.Text<{ $status: string }>`
 export const RefCard = styled.View`
   background-color: ${({ theme }) => theme.COLORS.BLUE[50]};
   border: 1px solid ${({ theme }) => theme.COLORS.BLUE[200]};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   padding: 1rem;
 `;
 

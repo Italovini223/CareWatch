@@ -12,7 +12,7 @@ export const Container = styled.TouchableOpacity<ButtonProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   padding: 0.5rem 1rem;
   font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};

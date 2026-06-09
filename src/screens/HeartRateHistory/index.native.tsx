@@ -1,5 +1,6 @@
 import { Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LineChart } from 'react-native-chart-kit';
 import { ArrowLeft, Calendar } from 'lucide-react-native';
 import { Navigation } from '../../components/Navigation';
@@ -75,6 +76,7 @@ const getStatusLabel = (status: string) => {
 
 export function HeartRateHistory() {
   const navigation = useNavigation<any>();
+  const insets = useSafeAreaInsets();
   const chartWidth = Dimensions.get('window').width - 32;
   const chartData = {
     labels: mockData.map((item) => item.time),
@@ -89,7 +91,7 @@ export function HeartRateHistory() {
 
   return (
     <Screen>
-      <PageHeader>
+      <PageHeader $topInset={insets.top}>
         <HeaderInner>
           <BackButton onPress={() => navigation.navigate('Dashboard')}>
             <ArrowLeft size={20} color="white" />

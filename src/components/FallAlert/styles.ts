@@ -14,7 +14,7 @@ export const AlertWrapper = styled(motion.view)`
 export const AlertBox = styled.View`
   background-color: ${({ theme }) => theme.COLORS.RED[600]};
   color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   box-shadow: ${({ theme }) => theme.SHADOWS.alert};
   padding: 1rem;
   display: flex;
@@ -58,7 +58,7 @@ export const AlertHint = styled.TextInput`
 
 export const DismissButton = styled.TouchableOpacity`
   padding: 0.25rem;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   background: transparent;
   border: none;
   cursor: pointer;

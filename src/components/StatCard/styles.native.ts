@@ -4,7 +4,7 @@ type Status = 'normal' | 'warning' | 'danger';
 
 export const Container = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border-width: 1px;
   border-color: rgba(0, 0, 0, 0.08);
   padding: 16px;

@@ -114,7 +114,7 @@ export const StatsContainer = styled.View`
 export const InfoCard = styled.View`
   background-color: ${({ theme }) => theme.COLORS.BLUE[50]};
   border: 1px solid ${({ theme }) => theme.COLORS.BLUE[200]};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   padding: 1rem;
   margin-top: 1.5rem;
   display: flex;
@@ -160,7 +160,7 @@ export const QuickStats = styled.View`
 
 export const QuickStatCard = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: ${({ theme }) => theme.SHADOWS.sm};
   padding: 0.75rem;
@@ -199,7 +199,7 @@ export const LogoutButton = styled.TouchableOpacity`
   justify-content: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   border: 1px solid ${({ theme }) => theme.COLORS.RED[200]};
   cursor: pointer;
   background: transparent;

@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const StyledInput = styled.TextInput`
   width: 100%;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   border: 1px solid ${({ theme }) => theme.COLORS.GRAY[200]};
   background-color: ${({ theme }) => theme.COLORS.GRAY[100]};
   padding: 0.5rem 0.75rem;

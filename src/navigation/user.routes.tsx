@@ -14,7 +14,7 @@ export type UserNavigatorRoutesProps = BottomTabNavigationProp<UserRoutes>
 
 const { Navigator, Screen } = createBottomTabNavigator<UserRoutes>();
 
-export function AppRoutes() {
+export function UserRoutes() {
   const { COLORS } = useTheme();
 
   return (

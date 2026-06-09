@@ -25,7 +25,7 @@ export const NavButton = styled.TouchableOpacity<{ $active: boolean }>`
   flex-direction: column;
   align-items: center;
   padding: 8px 12px;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   background-color: transparent;
 
   ${({ $active, theme }) =>

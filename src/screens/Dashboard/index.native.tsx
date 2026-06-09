@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Animated } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Activity, Heart, AlertTriangle, User, LogOut } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -39,6 +40,7 @@ import {
 
 export function Dashboard() {
   const navigation = useNavigation<any>();
+  const insets = useSafeAreaInsets();
   const [showFallAlert, setShowFallAlert] = useState(false);
   const [currentData, setCurrentData] = useState({
     bloodPressure: { systolic: 120, diastolic: 80 },
@@ -116,7 +118,7 @@ export function Dashboard() {
         />
       ) : null}
 
-      <PageHeader>
+      <PageHeader $topInset={insets.top}>
         <HeaderInner>
           <HeaderRow>
             <UserInfo>

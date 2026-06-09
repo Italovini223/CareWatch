@@ -14,8 +14,11 @@ export const Screen = styled.ScrollView.attrs({
 
 export const PageHeader = styled(LinearGradient).attrs(({ theme }) => ({
   colors: [theme.COLORS.BLUE[600], theme.COLORS.BLUE[800]],
-}))`
-  padding: 24px 16px 32px;
+}))<{ $topInset?: number }>`
+  padding-top: ${({ $topInset = 0 }) => 24 + $topInset}px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 32px;
 `;
 
 export const HeaderInner = styled.View`
@@ -106,7 +109,7 @@ export const InfoCard = styled.View`
   background-color: ${({ theme }) => theme.COLORS.BLUE[50]};
   border-width: 1px;
   border-color: ${({ theme }) => theme.COLORS.BLUE[200]};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   padding: 16px;
   margin-top: 24px;
   flex-direction: row;
@@ -147,7 +150,7 @@ export const QuickStats = styled.View`
 export const QuickStatCard = styled.View<{ $isLast?: boolean }>`
   flex: 1;
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border-width: 1px;
   border-color: rgba(0, 0, 0, 0.08);
   padding: 12px;
@@ -185,7 +188,7 @@ export const LogoutButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   padding: 10px 16px;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   border-width: 1px;
   border-color: ${({ theme }) => theme.COLORS.RED[200]};
   background-color: transparent;

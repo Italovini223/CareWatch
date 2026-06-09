@@ -16,7 +16,7 @@ export const CardBox = styled.View`
   width: 100%;
   max-width: 448px;
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   padding: 32px;
   shadow-color: #000000;
   shadow-offset: 0px 10px;
@@ -79,7 +79,7 @@ export const PasswordToggle = styled.TouchableOpacity`
 
 export const PasswordInput = styled.TextInput`
   width: 100%;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   border-width: 1px;
   border-color: ${({ theme }) => theme.COLORS.GRAY[200]};
   background-color: ${({ theme }) => theme.COLORS.GRAY[100]};
@@ -93,7 +93,7 @@ export const SubmitButton = styled.TouchableOpacity`
   width: 100%;
   align-items: center;
   justify-content: center;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   padding: 10px 16px;
   background-color: ${({ theme }) => theme.COLORS.BLUE[600]};
   margin-top: 8px;
@@ -110,7 +110,7 @@ export const SubmitButtonText = styled.Text`
 export const DemoButton = styled.TouchableOpacity`
   width: 100%;
   padding: 10px 16px;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   border-width: 2px;
   border-style: dashed;
   border-color: ${({ theme }) => theme.COLORS.BLUE[200]};

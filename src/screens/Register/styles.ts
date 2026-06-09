@@ -16,7 +16,7 @@ export const CardBox = styled.View`
   width: 100%;
   max-width: 448px;
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   padding: 32px;
 `;
 
@@ -96,7 +96,7 @@ export const PasswordWrapper = styled.View`
 
 export const PasswordInput = styled.TextInput`
   width: 100%;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   border-width: 1px;
   border-color: ${({ theme }) => theme.COLORS.GRAY[200]};
   background-color: ${({ theme }) => theme.COLORS.GRAY[100]};
@@ -108,7 +108,7 @@ export const PasswordInput = styled.TextInput`
 
 export const SerialInput = styled.TextInput`
   width: 100%;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   border-width: 1px;
   border-color: ${({ theme }) => theme.COLORS.GRAY[200]};
   background-color: ${({ theme }) => theme.COLORS.GRAY[100]};
@@ -172,7 +172,7 @@ export const SubmitButton = styled.TouchableOpacity`
   width: 100%;
   align-items: center;
   justify-content: center;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   padding: 10px 16px;
   background-color: ${({ theme }) => theme.COLORS.BLUE[600]};
 `;
@@ -220,7 +220,7 @@ export const Divider = styled.View`
 
 export const SerialHintBox = styled.View`
   background-color: ${({ theme }) => theme.COLORS.BLUE[50]};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   padding: 12px;
   margin-bottom: 16px;
 `;

@@ -13,8 +13,11 @@ export const Screen = styled.ScrollView.attrs({
 
 export const PageHeader = styled(LinearGradient).attrs(() => ({
   colors: ['#ea580c', '#dc2626'],
-}))`
-  padding: 24px 16px 28px;
+}))<{ $topInset?: number }>`
+  padding-top: ${({ $topInset = 0 }) => 24 + $topInset}px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 28px;
 `;
 
 export const HeaderInner = styled.View`
@@ -72,7 +75,7 @@ export const StatsRow = styled.View`
 export const StatItem = styled.View<{ $isLast?: boolean }>`
   flex: 1;
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border-width: 1px;
   border-color: rgba(0, 0, 0, 0.08);
   padding: 12px;
@@ -103,7 +106,7 @@ export const AlertCard = styled.View`
   background-color: #fff7ed;
   border-width: 1px;
   border-color: #fdba74;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   padding: 16px;
   flex-direction: row;
   align-items: flex-start;
@@ -147,7 +150,7 @@ export const IncidentsList = styled.View``;
 
 export const IncidentCard = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border-width: 1px;
   border-color: rgba(0, 0, 0, 0.08);
   padding: 16px;
@@ -238,7 +241,7 @@ export const IncidentMetaText = styled.Text`
 
 export const VitalsBox = styled.View`
   background-color: ${({ theme }) => theme.COLORS.GRAY[50]};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   padding: 12px;
   margin-bottom: 12px;
 `;
@@ -315,7 +318,7 @@ export const RespondedText = styled.Text`
 
 export const TipsCard = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg};
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border-width: 1px;
   border-color: rgba(0, 0, 0, 0.08);
   padding: 16px;
