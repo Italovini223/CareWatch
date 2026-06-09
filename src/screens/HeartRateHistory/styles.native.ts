@@ -36,7 +36,7 @@ export const BackButtonText = styled.Text`
   margin-left: 8px;
   color: ${({ theme }) => theme.COLORS.WHITE};
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
 `;
 
 export const PageTitle = styled.Text`
@@ -55,7 +55,7 @@ export const DateRow = styled.View`
 export const DateText = styled.Text`
   margin-left: 8px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: #fce7f3;
 `;
 
@@ -111,14 +111,14 @@ export const StatItem = styled.View<{ $isLast?: boolean }>`
 
 export const StatItemLabel = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
 `;
 
 export const StatItemValue = styled.Text<{ $color?: string }>`
   margin-top: 4px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.lg};
+  font-size: ${({ theme }) => theme.FONT_SIZES.lg}px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ $color, theme }) => $color || theme.COLORS.GRAY[900]};
 `;
@@ -157,21 +157,21 @@ export const ReadingValue = styled.Text`
 export const ReadingTime = styled.Text`
   margin-top: 2px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
 `;
 
 export const ReadingActivity = styled.Text`
   margin-top: 2px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.GRAY[500]};
 `;
 
 export const StatusBadge = styled.Text<{ $status: string }>`
   border-radius: 999px;
   padding: 4px 10px;
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
 
@@ -207,7 +207,7 @@ export const RefCard = styled.View`
 export const RefTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.RED[900]};
   margin-bottom: 8px;
 `;
@@ -228,7 +228,7 @@ export const RefDot = styled.View<{ $color: string }>`
 
 export const RefText = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.RED[700]};
 `;
 
@@ -257,13 +257,13 @@ export const ZoneRow = styled.View`
 
 export const ZoneLabel = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
 `;
 
 export const ZonePercent = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
 `;
 

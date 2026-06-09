@@ -3,16 +3,16 @@ import styled, { css } from 'styled-components/native';
 export const Container = styled.View`
   min-height: 100vh;
   background-color: ${({ theme }) => theme.COLORS.GRAY[50]};
-  padding-bottom: 5rem;
+  padding-bottom: 80px;
 `;
 
 export const PageHeader = styled.View`
   background: linear-gradient(to right, ${({ theme }) => theme.COLORS.BLUE[600]}, ${({ theme }) => theme.COLORS.BLUE[800]});
-  padding: 1.5rem;
+  padding: 24px;
 `;
 
 export const HeaderInner = styled.View`
-  max-width: 28rem;
+  max-width: 448px;
   margin: 0 auto;
   width: 100%;
 `;
@@ -21,10 +21,10 @@ export const BackButton = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   cursor: pointer;
   padding: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   background: transparent;
   border: none;
 `;
@@ -41,14 +41,14 @@ export const PageTitle = styled.Text`
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ theme }) => theme.COLORS.WHITE};
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 `;
 
 export const DateRow = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
 `;
 
 export const DateText = styled.Text`
@@ -58,12 +58,12 @@ export const DateText = styled.Text`
 `;
 
 export const Content = styled.View`
-  max-width: 28rem;
+  max-width: 448px;
   margin: 0 auto;
-  padding: 1.5rem 1rem;
+  padding: 24px 16px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
 `;
 
 export const ChartCard = styled.View`
@@ -71,7 +71,7 @@ export const ChartCard = styled.View`
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: ${({ theme }) => theme.SHADOWS.sm};
-  padding: 1rem;
+  padding: 16px;
 `;
 
 export const CardTitle = styled.Text`
@@ -79,13 +79,13 @@ export const CardTitle = styled.Text`
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 `;
 
 export const StatsGrid = styled.View`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
+  gap: 12px;
 `;
 
 export const StatItem = styled.View`
@@ -93,7 +93,7 @@ export const StatItem = styled.View`
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: ${({ theme }) => theme.SHADOWS.sm};
-  padding: 0.75rem;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,18 +101,18 @@ export const StatItem = styled.View`
 
 export const StatItemLabel = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
   display: block;
 `;
 
 export const StatItemValue = styled.Text<{ $color?: string }>`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.lg};
+  font-size: ${({ theme }) => theme.FONT_SIZES.lg}px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ $color, theme }) => $color || theme.COLORS.GRAY[900]};
   display: block;
-  margin-top: 0.25rem;
+  margin-top: 4px;
 `;
 
 export const ReadingsList = styled.View`
@@ -120,7 +120,7 @@ export const ReadingsList = styled.View`
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: ${({ theme }) => theme.SHADOWS.sm};
-  padding: 1rem;
+  padding: 16px;
 `;
 
 export const ReadingItem = styled.View`
@@ -128,7 +128,7 @@ export const ReadingItem = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 0;
+  padding: 12px 0;
   border-bottom: 1px solid ${({ theme }) => theme.COLORS.GRAY[200]};
 
   &:last-child {
@@ -147,15 +147,15 @@ export const ReadingValue = styled.Text`
 
 export const ReadingTime = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
   display: block;
 `;
 
 export const StatusBadge = styled.Text<{ $status: string }>`
   border-radius: 9999px;
-  padding: 0.25rem 0.625rem;
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  padding: 4px 10px;
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
 
@@ -183,34 +183,34 @@ export const RefCard = styled.View`
   background-color: ${({ theme }) => theme.COLORS.BLUE[50]};
   border: 1px solid ${({ theme }) => theme.COLORS.BLUE[200]};
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
-  padding: 1rem;
+  padding: 16px;
 `;
 
 export const RefTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.BLUE[900]};
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 `;
 
 export const RefList = styled.View`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 8px;
 `;
 
 export const RefItem = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
 `;
 
 export const RefDot = styled.View<{ $color: string }>`
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 12px;
+  height: 12px;
   border-radius: 9999px;
   background-color: ${({ $color }) => $color};
   flex-shrink: 0;
@@ -218,6 +218,6 @@ export const RefDot = styled.View<{ $color: string }>`
 
 export const RefText = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.BLUE[700]};
 `;

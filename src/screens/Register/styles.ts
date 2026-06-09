@@ -7,9 +7,6 @@ export const Container = styled(LinearGradient).attrs(({ theme }) => ({
   end: { x: 1, y: 1 },
 }))`
   flex: 1;
-  align-items: center;
-  justify-content: center;
-  padding: 32px 16px;
 `;
 
 export const CardBox = styled.View`
@@ -76,7 +73,7 @@ export const SectionLabel = styled.Text`
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ theme }) => theme.COLORS.GRAY[400]};
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.8px;
   margin-left: 8px;
 `;
 
@@ -115,7 +112,7 @@ export const SerialInput = styled.TextInput`
   padding: 8px 40px 8px 12px;
   font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: monospace;
-  letter-spacing: 0.1em;
+  letter-spacing: 1.6px;
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
 `;
 
@@ -150,7 +147,7 @@ export const HintText = styled.Text`
 export const AgeBadgeRow = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-top: 0.25rem;
+  margin-top: 4px;
 `;
 
 export const AgeDot = styled.View`
@@ -182,7 +179,6 @@ export const SubmitButtonText = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
   color: ${({ theme }) => theme.COLORS.WHITE};
-  line-height: 1.5;
 `;
 
 export const Footer = styled.View`
@@ -249,7 +245,7 @@ export const PrototypeLink = styled.TouchableOpacity`
 `;
 
 export const PrototypeLinkText = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm}pxpx;
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   color: ${({ theme }) => theme.COLORS.GRAY[500]};
   margin-left: 8px;

@@ -6,11 +6,11 @@ export const Container = styled.View`
 `;
 
 export const PageHeader = styled.View`
-  padding: 3rem 1.25rem 2rem;
+  padding: 48px 20px 32px;
 `;
 
 export const HeaderInner = styled.View`
-  max-width: 28rem;
+  max-width: 448px;
   margin: 0 auto;
   width: 100%;
 `;
@@ -19,14 +19,14 @@ export const LogoRow = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
+  gap: 12px;
+  margin-bottom: 24px;
 `;
 
 export const LogoIconBox = styled.View`
   background-color: rgba(255, 255, 255, 0.1);
-  padding: 0.75rem;
-  border-radius: 1rem;
+  padding: 12px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,17 +51,17 @@ export const AppSubtitle = styled.Text`
 
 export const InfoBanner = styled.View`
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
-  padding: 1rem;
+  border-radius: 16px;
+  padding: 16px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: 12px;
 `;
 
 export const InfoBannerIcon = styled.View`
   flex-shrink: 0;
-  margin-top: 0.125rem;
+  margin-top: 2px;
 `;
 
 export const InfoBannerBody = styled.View`
@@ -74,7 +74,7 @@ export const InfoBannerTitle = styled.Text`
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
   color: ${({ theme }) => theme.COLORS.WHITE};
   display: block;
-  margin-bottom: 0.25rem;
+  margin-bottom: 4px;
 `;
 
 export const InfoBannerText = styled.Text`
@@ -86,12 +86,12 @@ export const InfoBannerText = styled.Text`
 `;
 
 export const Content = styled.View`
-  padding: 0 1.25rem 3rem;
-  max-width: 28rem;
+  padding: 0 20px 48px;
+  max-width: 448px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 32px;
   width: 100%;
 `;
 
@@ -101,8 +101,8 @@ export const GroupDivider = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  gap: 8px;
+  margin-bottom: 12px;
 `;
 
 export const DividerLine = styled.View`
@@ -117,13 +117,13 @@ export const GroupLabel = styled.Text`
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: #a5b4fc;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 1.6px;
 `;
 
 export const ScreensList = styled.View`
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 12px;
 `;
 
 export const ScreenButton = styled.TouchableOpacity`
@@ -138,18 +138,18 @@ export const ScreenButton = styled.TouchableOpacity`
 export const ScreenCard = styled.View`
   background-color: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
-  padding: 1rem;
+  border-radius: 16px;
+  padding: 16px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
+  gap: 16px;
 `;
 
 export const ScreenIconBox = styled.View<{ $gradientFrom: string; $gradientTo: string }>`
   background: linear-gradient(to bottom right, ${({ $gradientFrom }) => $gradientFrom}, ${({ $gradientTo }) => $gradientTo});
-  padding: 0.75rem;
-  border-radius: 0.75rem;
+  padding: 12px;
+  border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   flex-shrink: 0;
   display: flex;
@@ -166,7 +166,7 @@ export const ScreenNameRow = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   flex-wrap: wrap;
 `;
 
@@ -180,7 +180,7 @@ export const ScreenName = styled.Text`
 export const ScreenTag = styled.Text<{ $accentBg: string; $accentText: string }>`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
-  padding: 0.125rem 0.5rem;
+  padding: 2px 8px;
   border-radius: 9999px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
   background-color: ${({ $accentBg }) => $accentBg};
@@ -192,7 +192,7 @@ export const ScreenDescription = styled.Text`
   font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: #a5b4fc;
   display: block;
-  margin-top: 0.25rem;
+  margin-top: 4px;
   line-height: 1.625;
 `;
 
@@ -202,7 +202,7 @@ export const ScreenPath = styled.Text`
   color: #818cf8;
   opacity: 0.6;
   display: block;
-  margin-top: 0.25rem;
+  margin-top: 4px;
 `;
 
 export const ChevronWrapper = styled.View`
@@ -212,8 +212,8 @@ export const ChevronWrapper = styled.View`
 export const CredentialsBox = styled.View`
   background-color: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
-  padding: 1rem;
+  border-radius: 16px;
+  padding: 16px;
 `;
 
 export const CredentialsTitle = styled.Text`
@@ -222,13 +222,13 @@ export const CredentialsTitle = styled.Text`
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ theme }) => theme.COLORS.WHITE};
   display: block;
-  margin-bottom: 0.75rem;
+  margin-bottom: 12px;
 `;
 
 export const CredentialsList = styled.View`
   display: flex;
   flex-direction: column;
-  gap: 0.375rem;
+  gap: 6px;
 `;
 
 export const CredentialRow = styled.View`

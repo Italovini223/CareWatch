@@ -7,7 +7,7 @@ export const Container = styled.TouchableOpacity`
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: ${({ theme }) => theme.SHADOWS.sm};
-  padding: 1rem;
+  padding: 16px;
   cursor: pointer;
   transition: box-shadow 0.2s;
 
@@ -19,11 +19,11 @@ export const Container = styled.TouchableOpacity`
 export const Row = styled.View`
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
 `;
 
 export const IconWrapper = styled.View<{ $status: Status }>`
-  padding: 0.75rem;
+  padding: 12px;
   border-radius: 9999px;
 
   ${({ $status, theme }) =>
@@ -62,7 +62,7 @@ export const StatLabel = styled.Text`
 export const ValueRow = styled.View`
   display: flex;
   align-items: baseline;
-  gap: 0.25rem;
+  gap: 4px;
 `;
 
 export const StatValue = styled.Text`

@@ -36,7 +36,7 @@ export const BackButtonText = styled.Text`
   margin-left: 8px;
   color: ${({ theme }) => theme.COLORS.WHITE};
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
 `;
 
 export const PageTitle = styled.Text`
@@ -55,7 +55,7 @@ export const DateRow = styled.View`
 export const DateText = styled.Text`
   margin-left: 8px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: #fed7aa;
 `;
 
@@ -90,14 +90,14 @@ export const StatItem = styled.View<{ $isLast?: boolean }>`
 
 export const StatItemLabel = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
 `;
 
 export const StatItemValue = styled.Text<{ $color?: string }>`
   margin-top: 4px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.lg};
+  font-size: ${({ theme }) => theme.FONT_SIZES.lg}px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ $color, theme }) => $color || theme.COLORS.GRAY[900]};
 `;
@@ -127,20 +127,20 @@ export const AlertContent = styled.View`
 export const AlertTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: #7c2d12;
   margin-bottom: 4px;
 `;
 
 export const AlertText = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: #9a3412;
 `;
 
 export const SectionTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.lg};
+  font-size: ${({ theme }) => theme.FONT_SIZES.lg}px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
   margin-bottom: 0;
@@ -191,14 +191,14 @@ export const IncidentTitle = styled.Text`
 
 export const IncidentDate = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
 `;
 
 export const SeverityBadge = styled.Text<{ $severity: string }>`
   border-radius: 999px;
   padding: 4px 10px;
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
 
@@ -235,7 +235,7 @@ export const IncidentMetaItem = styled.View`
 export const IncidentMetaText = styled.Text`
   margin-left: 8px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.GRAY[700]};
 `;
 
@@ -248,7 +248,7 @@ export const VitalsBox = styled.View`
 
 export const VitalsTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
   margin-bottom: 8px;
 `;
@@ -265,13 +265,13 @@ export const VitalItem = styled.View<{ $isLast?: boolean }>`
 
 export const VitalLabel = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
 `;
 
 export const VitalValue = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
   margin-top: 4px;
 `;
@@ -284,14 +284,14 @@ export const NotesSection = styled.View`
 
 export const NotesLabel = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
   margin-bottom: 4px;
 `;
 
 export const NotesText = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.GRAY[700]};
 `;
 
@@ -311,7 +311,7 @@ export const RespondedDot = styled.View`
 
 export const RespondedText = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
   color: ${({ theme }) => theme.COLORS.GREEN[700]};
 `;
@@ -331,7 +331,7 @@ export const TipsCard = styled.View`
 
 export const TipsTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
   margin-bottom: 8px;
 `;
@@ -349,6 +349,6 @@ export const TipBullet = styled.Text`
 export const TipText = styled.Text`
   flex: 1;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.GRAY[700]};
 `;

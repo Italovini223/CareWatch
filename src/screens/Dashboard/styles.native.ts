@@ -51,7 +51,7 @@ export const AvatarCircle = styled.View`
 export const UserDetails = styled.View``;
 
 export const UserName = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES.xl};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xl}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ theme }) => theme.COLORS.WHITE};
@@ -59,7 +59,7 @@ export const UserName = styled.Text`
 
 export const UserAge = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: rgba(219, 234, 254, 1);
 `;
 
@@ -73,7 +73,7 @@ export const ConnectedBadge = styled.View`
 
 export const ConnectedText = styled.Text`
   margin-left: 6px;
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
   color: ${({ theme }) => theme.COLORS.WHITE};
@@ -88,7 +88,7 @@ export const PulseDot = styled(Animated.View)`
 
 export const LastUpdate = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: rgba(219, 234, 254, 1);
 `;
 
@@ -130,14 +130,14 @@ export const InfoContent = styled.View`
 export const InfoTitle = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.BLUE[900]};
   margin-bottom: 4px;
 `;
 
 export const InfoText = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.BLUE[700]};
 `;
 
@@ -165,14 +165,14 @@ export const QuickStatCard = styled.View<{ $isLast?: boolean }>`
 
 export const QuickStatLabel = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xs};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
 `;
 
 export const QuickStatValue = styled.Text<{ $color?: string }>`
   margin-top: 4px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.xl};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xl}px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ $color, theme }) => $color || theme.COLORS.GRAY[900]};
 `;
@@ -196,7 +196,7 @@ export const LogoutButton = styled.TouchableOpacity`
 
 export const LogoutButtonText = styled.Text`
   margin-left: 8px;
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
   color: ${({ theme }) => theme.COLORS.RED[600]};

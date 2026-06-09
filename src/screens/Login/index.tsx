@@ -31,6 +31,8 @@ import {
   PrototypeLinkText,
 } from './styles';
 
+import { Button } from '../../components/Button';
+
 export function Login() {
   const navigation = useNavigation<UserNavigatorRoutesProps>();
   const [showPassword, setShowPassword] = useState(false);

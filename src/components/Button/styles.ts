@@ -13,7 +13,7 @@ export const Container = styled.TouchableOpacity<ButtonProps>`
   align-items: center;
   justify-content: center;
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
-  padding: 0.5rem 1rem;
+  padding: 8px 16px;
   font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
@@ -21,7 +21,7 @@ export const Container = styled.TouchableOpacity<ButtonProps>`
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
   border: 1px solid transparent;
   line-height: 1.5;
-  gap: 0.5rem;
+  gap: 8px;
 
   ${({ fullWidth }) =>
     fullWidth &&

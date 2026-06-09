@@ -5,7 +5,7 @@ export const StyledInput = styled.TextInput`
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   border: 1px solid ${({ theme }) => theme.COLORS.GRAY[200]};
   background-color: ${({ theme }) => theme.COLORS.GRAY[100]};
-  padding: 0.5rem 0.75rem;
+  padding: 8px 12px;
   font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   color: ${({ theme }) => theme.COLORS.GRAY[900]};

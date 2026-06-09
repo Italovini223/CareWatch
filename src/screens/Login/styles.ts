@@ -18,11 +18,6 @@ export const CardBox = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   padding: 32px;
-  shadow-color: #000000;
-  shadow-offset: 0px 10px;
-  shadow-opacity: 0.2;
-  shadow-radius: 16px;
-  elevation: 6;
 `;
 
 export const Header = styled.View`
@@ -84,7 +79,7 @@ export const PasswordInput = styled.TextInput`
   border-color: ${({ theme }) => theme.COLORS.GRAY[200]};
   background-color: ${({ theme }) => theme.COLORS.GRAY[100]};
   padding: 8px 40px 8px 12px;
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
 `;
@@ -100,11 +95,10 @@ export const SubmitButton = styled.TouchableOpacity`
 `;
 
 export const SubmitButtonText = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
   color: ${({ theme }) => theme.COLORS.WHITE};
-  line-height: 1.5;
 `;
 
 export const DemoButton = styled.TouchableOpacity`
@@ -121,7 +115,7 @@ export const DemoButton = styled.TouchableOpacity`
 `;
 
 export const DemoButtonText = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
   color: ${({ theme }) => theme.COLORS.BLUE[600]};
@@ -137,7 +131,7 @@ export const Footer = styled.View`
 
 export const FooterText = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.GRAY[600]};
   margin-right: 4px;
 `;
@@ -150,7 +144,7 @@ export const FooterLinkText = styled.Text`
   color: ${({ theme }) => theme.COLORS.BLUE[600]};
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
 `;
 
 export const Divider = styled.View`
@@ -170,7 +164,7 @@ export const PrototypeLink = styled.TouchableOpacity`
 `;
 
 export const PrototypeLinkText = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm};
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   color: ${({ theme }) => theme.COLORS.GRAY[500]};
   margin-left: 8px;

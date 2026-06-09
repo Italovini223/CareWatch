@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Heart, Eye, EyeOff, Watch, LayoutGrid, User, Calendar } from 'lucide-react-native';
 import { toast } from '../../utils/toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -57,6 +59,7 @@ function calcularIdade(dataNascimento: string): number | null {
 
 export function Register() {
   const navigation = useNavigation<any>();
+  const insets = useSafeAreaInsets();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -147,6 +150,17 @@ export function Register() {
 
   return (
     <Container>
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingTop: insets.top + 32,
+          paddingBottom: insets.bottom + 32,
+          paddingHorizontal: 16,
+        }}
+        keyboardShouldPersistTaps="handled"
+      >
       <CardBox>
         <Header>
           <LogoCircle>
@@ -312,6 +326,7 @@ export function Register() {
           </PrototypeLink>
         </Divider>
       </CardBox>
+      </ScrollView>
     </Container>
   );
 }

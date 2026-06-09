@@ -3,11 +3,11 @@ import { motion } from 'motion/react';
 
 export const AlertWrapper = styled(motion.view)`
   position: fixed;
-  top: 1rem;
-  left: 1rem;
-  right: 1rem;
+  top: 16px;
+  left: 16px;
+  right: 16px;
   z-index: 50;
-  max-width: 28rem;
+  max-width: 448px;
   margin: 0 auto;
 `;
 
@@ -16,15 +16,15 @@ export const AlertBox = styled.View`
   color: ${({ theme }) => theme.COLORS.WHITE};
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
   box-shadow: ${({ theme }) => theme.SHADOWS.alert};
-  padding: 1rem;
+  padding: 16px;
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: 12px;
 `;
 
 export const AlertIconWrapper = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WITH_OPACITY.WHITE_20};
-  padding: 0.5rem;
+  padding: 8px;
   border-radius: 9999px;
   flex-shrink: 0;
 `;
@@ -38,14 +38,14 @@ export const AlertTitle = styled.TextInput`
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   font-size: ${({ theme }) => theme.FONT_SIZES.lg}px;
   color: ${({ theme }) => theme.COLORS.WHITE};
-  margin: 0 0 0.25rem;
+  margin: 0 0 4px;
 `;
 
 export const AlertMessage = styled.TextInput`
   font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
   font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   color: ${({ theme }) => theme.COLORS.WHITE};
-  margin: 0 0 0.5rem;
+  margin: 0 0 8px;
 `;
 
 export const AlertHint = styled.TextInput`
@@ -57,7 +57,7 @@ export const AlertHint = styled.TextInput`
 `;
 
 export const DismissButton = styled.TouchableOpacity`
-  padding: 0.25rem;
+  padding: 4px;
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   background: transparent;
   border: none;

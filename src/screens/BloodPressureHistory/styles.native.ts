@@ -108,7 +108,7 @@ export const StatItemLabel = styled.Text`
 export const StatItemValue = styled.Text<{ $color?: string }>`
   margin-top: 4px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
-  font-size: ${({ theme }) => theme.FONT_SIZES.lg};
+  font-size: ${({ theme }) => theme.FONT_SIZES.lg}px;
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.semibold};
   color: ${({ $color, theme }) => $color || theme.COLORS.GRAY[900]};
 `;
