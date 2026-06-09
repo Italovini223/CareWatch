@@ -20,15 +20,11 @@ import {
   PasswordInput,
   SubmitButton,
   SubmitButtonText,
-  DemoButton,
-  DemoButtonText,
   Footer,
   FooterText,
   FooterLink,
   FooterLinkText,
-  Divider,
-  PrototypeLink,
-  PrototypeLinkText,
+
 } from './styles';
 
 import { Button } from '../../components/Button';
@@ -126,9 +122,7 @@ export function Login() {
           </SubmitButton>
         </Form>
 
-        <DemoButton onPress={handleDemoLogin}>
-          <DemoButtonText>Entrar como Demo (acesso rápido)</DemoButtonText>
-        </DemoButton>
+  
 
         <Footer>
           <FooterText>
@@ -139,12 +133,7 @@ export function Login() {
           </FooterLink>
         </Footer>
 
-        <Divider>
-          <PrototypeLink onPress={() => navigation.navigate('Register')}>
-            <LayoutGrid size={16} color="#6B7280" />
-            <PrototypeLinkText>Ver todas as telas do protótipo</PrototypeLinkText>
-          </PrototypeLink>
-        </Divider>
+
       </CardBox>
     </Container>
   );

@@ -101,25 +101,7 @@ export const SubmitButtonText = styled.Text`
   color: ${({ theme }) => theme.COLORS.WHITE};
 `;
 
-export const DemoButton = styled.TouchableOpacity`
-  width: 100%;
-  padding: 10px 16px;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
-  border-width: 2px;
-  border-style: dashed;
-  border-color: ${({ theme }) => theme.COLORS.BLUE[200]};
-  align-items: center;
-  justify-content: center;
-  margin-top: 12px;
-  background-color: transparent;
-`;
 
-export const DemoButtonText = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
-  font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  font-weight: ${({ theme }) => theme.FONT_WEIGHTS.medium};
-  color: ${({ theme }) => theme.COLORS.BLUE[600]};
-`;
 
 export const Footer = styled.View`
   margin-top: 24px;
@@ -147,25 +129,4 @@ export const FooterLinkText = styled.Text`
   font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
 `;
 
-export const Divider = styled.View`
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top-width: 1px;
-  border-top-color: ${({ theme }) => theme.COLORS.GRAY[200]};
-`;
 
-export const PrototypeLink = styled.TouchableOpacity`
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 0;
-  background-color: transparent;
-`;
-
-export const PrototypeLinkText = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
-  font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
-  color: ${({ theme }) => theme.COLORS.GRAY[500]};
-  margin-left: 8px;
-`;

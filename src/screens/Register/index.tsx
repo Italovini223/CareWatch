@@ -320,10 +320,6 @@ export function Register() {
             <SerialHintTitle>Serial de exemplo para testes:</SerialHintTitle>
             <SerialHintValue>CW01-2024-A1B2</SerialHintValue>
           </SerialHintBox>
-          <PrototypeLink onPress={() => navigation.navigate('ScreensOverview')}>
-            <LayoutGrid size={16} color="#6B7280" />
-            <PrototypeLinkText>Ver todas as telas do protótipo</PrototypeLinkText>
-          </PrototypeLink>
         </Divider>
       </CardBox>
       </ScrollView>
