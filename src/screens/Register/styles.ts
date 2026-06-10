@@ -33,7 +33,7 @@ export const LogoCircle = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES['3xl']};
+  font-size: ${({ theme }) => theme.FONT_SIZES['3xl']}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.bold};
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
@@ -91,11 +91,12 @@ export const PasswordWrapper = styled.View`
   position: relative;
 `;
 
-export const PasswordInput = styled.TextInput`
+export const PasswordInput = styled.TextInput<{ $isInvalid?: boolean }>`
   width: 100%;
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   border-width: 1px;
-  border-color: ${({ theme }) => theme.COLORS.GRAY[200]};
+  border-color: ${({ $isInvalid, theme }) =>
+    $isInvalid ? theme.COLORS.RED[600] : theme.COLORS.GRAY[200]};
   background-color: ${({ theme }) => theme.COLORS.GRAY[100]};
   padding: 8px 40px 8px 12px;
   font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
@@ -103,17 +104,25 @@ export const PasswordInput = styled.TextInput`
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
 `;
 
-export const SerialInput = styled.TextInput`
+export const SerialInput = styled.TextInput<{ $isInvalid?: boolean }>`
   width: 100%;
   border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
   border-width: 1px;
-  border-color: ${({ theme }) => theme.COLORS.GRAY[200]};
+  border-color: ${({ $isInvalid, theme }) =>
+    $isInvalid ? theme.COLORS.RED[600] : theme.COLORS.GRAY[200]};
   background-color: ${({ theme }) => theme.COLORS.GRAY[100]};
   padding: 8px 40px 8px 12px;
   font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
   font-family: monospace;
   letter-spacing: 1.6px;
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
+`;
+
+export const FieldError = styled.Text`
+  color: ${({ theme }) => theme.COLORS.RED[600]};
+  font-size: ${({ theme }) => theme.FONT_SIZES.xs}px;
+  font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
+  margin-top: 4px;
 `;
 
 export const InputWrapper = styled.View`

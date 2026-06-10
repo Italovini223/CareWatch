@@ -36,7 +36,7 @@ export const LogoCircle = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: ${({ theme }) => theme.FONT_SIZES['3xl']};
+  font-size: ${({ theme }) => theme.FONT_SIZES['3xl']}px;
   font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
   font-weight: ${({ theme }) => theme.FONT_WEIGHTS.bold};
   color: ${({ theme }) => theme.COLORS.GRAY[900]};
