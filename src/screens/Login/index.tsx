@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Heart, Eye, EyeOff, LayoutGrid } from 'lucide-react-native';
+import { Heart, Eye, EyeOff } from 'lucide-react-native';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
+import { auth } from '../../lib/firebase';
 import { toast } from '../../utils/toast';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Input } from '../../components/Input';
 import { Label } from '../../components/Label';
-import { UserNavigatorRoutesProps } from '../../navigation/user.routes';
 import {
   Container,
   CardBox,
@@ -24,54 +25,41 @@ import {
   FooterText,
   FooterLink,
   FooterLinkText,
-
 } from './styles';
 
-import { Button } from '../../components/Button';
-
 export function Login() {
-  const navigation = useNavigation<UserNavigatorRoutesProps>();
+  const navigation = useNavigation<any>();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async () => {
+  const handleLogin = async () => {
     if (!formData.email || !formData.password) {
       toast.error('Por favor, preencha todos os campos');
       return;
     }
-    const usersRaw = await AsyncStorage.getItem('users');
-    const users = JSON.parse(usersRaw || '[]');
-    const user = users.find(
-      (u: any) => u.email === formData.email && u.password === formData.password
-    );
-    if (user) {
-      await AsyncStorage.setItem('isAuthenticated', 'true');
-      await AsyncStorage.setItem('currentUser', JSON.stringify(user));
+    setIsLoading(true);
+    try {
+      await signInWithEmailAndPassword(auth, formData.email, formData.password);
       toast.success('Login realizado com sucesso!');
-      //navigation.navigate('MainTabs', { screen: '' });
-    } else {
-      toast.error('Email ou senha incorretos');
+      navigation.navigate('MainTabs', { screen: 'Dashboard' });
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        if (
+          error.code === 'auth/invalid-credential' ||
+          error.code === 'auth/user-not-found' ||
+          error.code === 'auth/wrong-password'
+        ) {
+          toast.error('Email ou senha incorretos');
+        } else if (error.code === 'auth/network-request-failed') {
+          toast.error('Erro de conexão. Verifique sua internet');
+        } else {
+          toast.error('Erro ao fazer login. Tente novamente');
+        }
+      }
+    } finally {
+      setIsLoading(false);
     }
-  };
-
-  const handleDemoLogin = async () => {
-    const demoUser = {
-      email: 'demo@carewatch.com',
-      password: 'demo123',
-      braceletSerial: 'CW01-2024-A1B2',
-      name: 'Maria Silva',
-      createdAt: new Date().toISOString(),
-    };
-    const usersRaw = await AsyncStorage.getItem('users');
-    const users = JSON.parse(usersRaw || '[]');
-    if (!users.find((u: any) => u.email === demoUser.email)) {
-      users.push(demoUser);
-      await AsyncStorage.setItem('users', JSON.stringify(users));
-    }
-    await AsyncStorage.setItem('isAuthenticated', 'true');
-    await AsyncStorage.setItem('currentUser', JSON.stringify(demoUser));
-    toast.success('Entrando como usuário demo!');
-    //navigation.navigate('MainTabs', { screen: 'Dashboard' });
   };
 
   return (
@@ -89,7 +77,8 @@ export function Login() {
           <FormGroup>
             <Label>Email</Label>
             <Input
-              keyboardType='email-address'
+              keyboardType="email-address"
+              autoCapitalize="none"
               placeholder="seu@email.com"
               value={formData.email}
               onChangeText={(text) => setFormData({ ...formData, email: text })}
@@ -103,9 +92,7 @@ export function Login() {
                 secureTextEntry={!showPassword}
                 placeholder="••••••••"
                 value={formData.password}
-                onChangeText={(text) =>
-                  setFormData({ ...formData, password: text })
-                }
+                onChangeText={(text) => setFormData({ ...formData, password: text })}
               />
               <PasswordToggle onPress={() => setShowPassword(!showPassword)}>
                 {showPassword ? (
@@ -117,23 +104,17 @@ export function Login() {
             </PasswordWrapper>
           </FormGroup>
 
-          <SubmitButton onPress={handleSubmit}>
-            <SubmitButtonText>Entrar</SubmitButtonText>
+          <SubmitButton onPress={handleLogin} disabled={isLoading}>
+            <SubmitButtonText>{isLoading ? 'Entrando...' : 'Entrar'}</SubmitButtonText>
           </SubmitButton>
         </Form>
 
-  
-
         <Footer>
-          <FooterText>
-            Não tem uma conta?{' '}
-          </FooterText>
+          <FooterText>Não tem uma conta? </FooterText>
           <FooterLink onPress={() => navigation.navigate('Register')}>
             <FooterLinkText>Cadastre-se</FooterLinkText>
           </FooterLink>
         </Footer>
-
-
       </CardBox>
     </Container>
   );

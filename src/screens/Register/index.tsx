@@ -5,7 +5,10 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Heart, Eye, EyeOff, Watch, User, Calendar } from 'lucide-react-native';
 import { useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
+import { collection, doc, setDoc, query, where, getDocs } from 'firebase/firestore';
+import { auth, db } from '../../lib/firebase';
 import { toast } from '../../utils/toast';
 import { Input } from '../../components/Input';
 import { Label } from '../../components/Label';
@@ -63,6 +66,7 @@ export function Register() {
   const insets = useSafeAreaInsets();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     control,
@@ -78,35 +82,43 @@ export function Register() {
   const idade = calcularIdade(birthDate || '');
 
   const onSubmit = async (data: RegisterFormData) => {
-    const usersRaw = await AsyncStorage.getItem('users');
-    const users = JSON.parse(usersRaw || '[]');
+    setIsLoading(true);
+    try {
+      const serialSnap = await getDocs(
+        query(collection(db, 'users'), where('braceletSerial', '==', data.braceletSerial))
+      );
+      if (!serialSnap.empty) {
+        toast.error('Este serial de pulseira já está cadastrado');
+        return;
+      }
 
-    if (users.some((u: any) => u.email === data.email)) {
-      toast.error('Este email já está cadastrado');
-      return;
+      const { user } = await createUserWithEmailAndPassword(auth, data.email, data.password);
+
+      await setDoc(doc(db, 'users', user.uid), {
+        email: data.email,
+        braceletSerial: data.braceletSerial,
+        elderName: data.elderName.trim(),
+        birthDate: data.birthDate,
+        phone: data.phone,
+        age: calcularIdade(data.birthDate),
+        createdAt: new Date().toISOString(),
+      });
+
+      toast.success('Conta criada com sucesso!');
+      navigation.navigate('MainTabs', { screen: 'Dashboard' });
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        if (error.code === 'auth/email-already-in-use') {
+          toast.error('Este email já está cadastrado');
+        } else if (error.code === 'auth/network-request-failed') {
+          toast.error('Erro de conexão. Verifique sua internet');
+        } else {
+          toast.error('Erro ao criar conta. Tente novamente');
+        }
+      }
+    } finally {
+      setIsLoading(false);
     }
-    if (users.some((u: any) => u.braceletSerial === data.braceletSerial)) {
-      toast.error('Este serial de pulseira já está cadastrado');
-      return;
-    }
-
-    const newUser = {
-      email: data.email,
-      password: data.password,
-      braceletSerial: data.braceletSerial,
-      elderName: data.elderName.trim(),
-      birthDate: data.birthDate,
-      phone: data.phone,
-      age: calcularIdade(data.birthDate),
-      createdAt: new Date().toISOString(),
-    };
-
-    users.push(newUser);
-    await AsyncStorage.setItem('users', JSON.stringify(users));
-    toast.success('Conta criada com sucesso!');
-    await AsyncStorage.setItem('isAuthenticated', 'true');
-    await AsyncStorage.setItem('currentUser', JSON.stringify(newUser));
-    navigation.navigate('MainTabs', { screen: 'Dashboard' });
   };
 
   return (
@@ -349,8 +361,8 @@ export function Register() {
               </FormGroup>
             </Section>
 
-            <SubmitButton onPress={handleSubmit(onSubmit)}>
-              <SubmitButtonText>Criar Conta</SubmitButtonText>
+            <SubmitButton onPress={handleSubmit(onSubmit)} disabled={isLoading}>
+              <SubmitButtonText>{isLoading ? 'Criando conta...' : 'Criar Conta'}</SubmitButtonText>
             </SubmitButton>
           </Form>
 
