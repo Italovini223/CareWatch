@@ -2,15 +2,35 @@ import * as yup from 'yup';
 
 const SERIAL_REGEX = /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
 
-function calcularIdade(dataNascimento: string): number | null {
-  if (!dataNascimento) return null;
-  const nascimento = new Date(dataNascimento);
-  if (isNaN(nascimento.getTime())) return null;
+function parseDDMMYYYY(value: string): Date | null {
+  const parts = value?.split('/');
+  if (parts?.length !== 3) return null;
+  const [day, month, year] = parts.map(Number);
+  if (!day || !month || !year) return null;
+  const date = new Date(year, month - 1, day);
+  if (
+    isNaN(date.getTime()) ||
+    date.getDate() !== day ||
+    date.getMonth() !== month - 1 ||
+    date.getFullYear() !== year
+  ) return null;
+  return date;
+}
+
+export function calcularIdadeDDMMYYYY(value: string): number | null {
+  const date = parseDDMMYYYY(value);
+  if (!date) return null;
   const hoje = new Date();
-  let idade = hoje.getFullYear() - nascimento.getFullYear();
-  const mes = hoje.getMonth() - nascimento.getMonth();
-  if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) idade--;
+  let idade = hoje.getFullYear() - date.getFullYear();
+  const mes = hoje.getMonth() - date.getMonth();
+  if (mes < 0 || (mes === 0 && hoje.getDate() < date.getDate())) idade--;
   return idade;
+}
+
+export function ddmmyyyyToISO(value: string): string {
+  const parts = value.split('/');
+  const [day, month, year] = parts.map(Number);
+  return new Date(year, month - 1, day).toISOString();
 }
 
 export const registerSchema = yup.object({
@@ -37,9 +57,9 @@ export const registerSchema = yup.object({
   birthDate: yup
     .string()
     .required('Data de nascimento é obrigatória')
-    .test('idade-valida', 'Data de nascimento inválida', (value) => {
+    .test('data-valida', 'Data de nascimento inválida', (value) => {
       if (!value) return false;
-      const idade = calcularIdade(value);
+      const idade = calcularIdadeDDMMYYYY(value);
       return idade !== null && idade >= 0 && idade <= 130;
     }),
 

@@ -259,3 +259,62 @@ export const PrototypeLinkText = styled.Text`
   color: ${({ theme }) => theme.COLORS.GRAY[500]};
   margin-left: 8px;
 `;
+
+export const DatePickerButton = styled.TouchableOpacity<{ $isInvalid?: boolean }>`
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: ${({ theme }) => theme.BORDER_RADIUS.md}px;
+  border-width: 1px;
+  border-color: ${({ $isInvalid, theme }) =>
+    $isInvalid ? theme.COLORS.RED[600] : theme.COLORS.GRAY[200]};
+  background-color: ${({ theme }) => theme.COLORS.GRAY[100]};
+  padding: 10px 12px;
+`;
+
+export const DatePickerText = styled.Text<{ $hasValue?: boolean }>`
+  font-size: ${({ theme }) => theme.FONT_SIZES.sm}px;
+  font-family: ${({ theme }) => theme.FONTS.Sansation_Regular};
+  color: ${({ $hasValue, theme }) =>
+    $hasValue ? theme.COLORS.GRAY[900] : theme.COLORS.GRAY[400]};
+`;
+
+export const IOSPickerOverlay = styled.View`
+  flex: 1;
+  justify-content: flex-end;
+  background-color: rgba(0, 0, 0, 0.4);
+`;
+
+export const IOSPickerContainer = styled.View`
+  background-color: #ffffff;
+  border-top-left-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
+  border-top-right-radius: ${({ theme }) => theme.BORDER_RADIUS.lg}px;
+  padding-bottom: 32px;
+`;
+
+export const IOSPickerHeader = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px 8px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${({ theme }) => theme.COLORS.GRAY[200]};
+`;
+
+export const IOSPickerTitle = styled.Text`
+  font-size: ${({ theme }) => theme.FONT_SIZES.base}px;
+  font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
+  color: ${({ theme }) => theme.COLORS.GRAY[900]};
+`;
+
+export const IOSPickerAction = styled.TouchableOpacity`
+  padding: 4px 8px;
+`;
+
+export const IOSPickerActionText = styled.Text<{ $confirm?: boolean }>`
+  font-size: ${({ theme }) => theme.FONT_SIZES.base}px;
+  font-family: ${({ theme }) => theme.FONTS.Sansation_Bold};
+  color: ${({ $confirm, theme }) =>
+    $confirm ? theme.COLORS.BLUE[600] : theme.COLORS.GRAY[500]};
+`;

@@ -3,11 +3,12 @@ import { Animated } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Activity, Heart, AlertTriangle, User, LogOut } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../lib/firebase';
 import { toast } from '../../utils/toast';
 import { StatCard } from '../../components/StatCard';
 import { FallAlert } from '../../components/FallAlert';
-import { Navigation } from '../../components/Navigation';
+import { Navigation, NAV_HEIGHT } from '../../components/Navigation';
 import {
   Screen,
   PageHeader,
@@ -50,10 +51,12 @@ export function Dashboard() {
   const pulseOpacity = useRef(new Animated.Value(1)).current;
 
   const handleLogout = async () => {
-    await AsyncStorage.removeItem('isAuthenticated');
-    await AsyncStorage.removeItem('currentUser');
-    toast.success('Logout realizado com sucesso!');
-    navigation.navigate('Login');
+    try {
+      await signOut(auth);
+      toast.success('Logout realizado com sucesso!');
+    } catch {
+      toast.error('Erro ao sair. Tente novamente.');
+    }
   };
 
   useEffect(() => {
@@ -109,7 +112,7 @@ export function Dashboard() {
   };
 
   return (
-    <Screen>
+    <Screen contentContainerStyle={{ paddingBottom: NAV_HEIGHT + insets.bottom }}>
       {showFallAlert ? (
         <FallAlert
           elderName="Maria Silva"

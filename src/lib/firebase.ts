@@ -1,6 +1,12 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { initializeAuth, getAuth, getReactNativePersistence } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { initializeAuth, getAuth } from 'firebase/auth';
+// Metro resolve @firebase/auth para o bundle RN que exporta getReactNativePersistence;
+// os tipos públicos não a expõem, então suprimimos o erro de TS pontualmente
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { getReactNativePersistence } = require('@firebase/auth') as {
+  getReactNativePersistence: (storage: typeof AsyncStorage) => import('@firebase/auth').Persistence;
+};
+import { getDatabase } from 'firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const firebaseConfig = {
@@ -26,5 +32,5 @@ try {
 }
 
 export { auth };
-export const db = getFirestore(app);
+export const rtdb = getDatabase(app);
 export default app;

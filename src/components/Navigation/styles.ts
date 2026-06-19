@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components/native';
 
-export const NavBar = styled.View`
+export const NAV_HEIGHT = 64;
+
+export const NavBar = styled.View<{ $bottomInset?: number }>`
   position: absolute;
   bottom: 0;
   left: 0;
@@ -8,7 +10,10 @@ export const NavBar = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
   border-top-width: 1px;
   border-top-color: ${({ theme }) => theme.COLORS.GRAY[200]};
-  padding: 8px 16px;
+  padding-top: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: ${({ $bottomInset = 0 }) => 8 + $bottomInset}px;
   z-index: 50;
 `;
 

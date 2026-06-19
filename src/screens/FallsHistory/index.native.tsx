@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ArrowLeft, Calendar, AlertTriangle, MapPin, Clock } from 'lucide-react-native';
-import { Navigation } from '../../components/Navigation';
+import { Navigation, NAV_HEIGHT } from '../../components/Navigation';
 import {
   Screen,
   PageHeader,
@@ -94,7 +94,7 @@ export function FallsHistory() {
   const insets = useSafeAreaInsets();
 
   return (
-    <Screen>
+    <Screen contentContainerStyle={{ paddingBottom: NAV_HEIGHT + insets.bottom }}>
       <PageHeader $topInset={insets.top}>
         <HeaderInner>
           <BackButton onPress={() => navigation.navigate('Dashboard')}>

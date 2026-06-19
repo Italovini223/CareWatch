@@ -1,18 +1,20 @@
-import { ScrollView } from 'react-native';
+import { ScrollView, Modal, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Heart, Eye, EyeOff, Watch, User, Calendar } from 'lucide-react-native';
 import { useState } from 'react';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
-import { collection, doc, setDoc, query, where, getDocs } from 'firebase/firestore';
-import { auth, db } from '../../lib/firebase';
+import { ref, set, get, query, orderByChild, equalTo } from 'firebase/database';
+import * as Crypto from 'expo-crypto';
+import { auth, rtdb } from '../../lib/firebase';
 import { toast } from '../../utils/toast';
 import { Input } from '../../components/Input';
 import { Label } from '../../components/Label';
-import { registerSchema, RegisterFormData } from './schema';
+import { registerSchema, RegisterFormData, calcularIdadeDDMMYYYY, ddmmyyyyToISO } from './schema';
 import {
   Container,
   CardBox,
@@ -48,18 +50,25 @@ import {
   SerialHintTitle,
   SerialHintValue,
   FieldError,
+  DatePickerButton,
+  DatePickerText,
+  IOSPickerOverlay,
+  IOSPickerContainer,
+  IOSPickerHeader,
+  IOSPickerTitle,
+  IOSPickerAction,
+  IOSPickerActionText,
 } from './styles';
 
-function calcularIdade(dataNascimento: string): number | null {
-  if (!dataNascimento) return null;
-  const nascimento = new Date(dataNascimento);
-  if (isNaN(nascimento.getTime())) return null;
-  const hoje = new Date();
-  let idade = hoje.getFullYear() - nascimento.getFullYear();
-  const mes = hoje.getMonth() - nascimento.getMonth();
-  if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) idade--;
-  return idade;
+function formatDateToDDMMYYYY(date: Date): string {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
 }
+
+const MAX_DATE = new Date();
+const MIN_DATE = new Date(1900, 0, 1);
 
 export function Register() {
   const navigation = useNavigation<any>();
@@ -67,11 +76,14 @@ export function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [tempDate, setTempDate] = useState<Date>(new Date(2000, 0, 1));
 
   const {
     control,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: yupResolver(registerSchema),
@@ -79,28 +91,34 @@ export function Register() {
   });
 
   const birthDate = watch('birthDate');
-  const idade = calcularIdade(birthDate || '');
+  const idade = calcularIdadeDDMMYYYY(birthDate || '');
 
   const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true);
     try {
-      const serialSnap = await getDocs(
-        query(collection(db, 'users'), where('braceletSerial', '==', data.braceletSerial))
+      const serialSnap = await get(
+        query(ref(rtdb, 'users'), orderByChild('braceletSerial'), equalTo(data.braceletSerial))
       );
-      if (!serialSnap.empty) {
+      if (serialSnap.exists()) {
         toast.error('Este serial de pulseira já está cadastrado');
         return;
       }
 
+      const passwordHash = await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        data.password
+      );
+
       const { user } = await createUserWithEmailAndPassword(auth, data.email, data.password);
 
-      await setDoc(doc(db, 'users', user.uid), {
+      await set(ref(rtdb, `users/${user.uid}`), {
         email: data.email,
         braceletSerial: data.braceletSerial,
         elderName: data.elderName.trim(),
-        birthDate: data.birthDate,
+        birthDate: ddmmyyyyToISO(data.birthDate),
         phone: data.phone,
-        age: calcularIdade(data.birthDate),
+        age: calcularIdadeDDMMYYYY(data.birthDate),
+        passwordHash,
         createdAt: new Date().toISOString(),
       });
 
@@ -118,6 +136,22 @@ export function Register() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleAndroidDateChange = (_: any, date?: Date) => {
+    setShowDatePicker(false);
+    if (date) {
+      setValue('birthDate', formatDateToDDMMYYYY(date), { shouldValidate: true });
+    }
+  };
+
+  const handleIOSTempChange = (_: any, date?: Date) => {
+    if (date) setTempDate(date);
+  };
+
+  const confirmIOSDate = () => {
+    setValue('birthDate', formatDateToDDMMYYYY(tempDate), { shouldValidate: true });
+    setShowDatePicker(false);
   };
 
   return (
@@ -286,26 +320,19 @@ export function Register() {
 
                 <FormGroup>
                   <Label>Data de nascimento</Label>
-                  <Controller
-                    control={control}
-                    name="birthDate"
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <InputWrapper>
-                        <Input
-                          keyboardType="numbers-and-punctuation"
-                          placeholder="AAAA-MM-DD"
-                          value={value}
-                          onChangeText={onChange}
-                          onBlur={onBlur}
-                          style={{ paddingRight: 40 }}
-                          errorMessage={errors.birthDate?.message}
-                        />
-                        <InputIcon>
-                          <Calendar size={20} color="#9CA3AF" />
-                        </InputIcon>
-                      </InputWrapper>
-                    )}
-                  />
+                  <DatePickerButton
+                    $isInvalid={!!errors.birthDate}
+                    onPress={() => setShowDatePicker(true)}
+                    activeOpacity={0.7}
+                  >
+                    <DatePickerText $hasValue={!!birthDate}>
+                      {birthDate || 'DD/MM/AAAA'}
+                    </DatePickerText>
+                    <Calendar size={18} color="#9CA3AF" />
+                  </DatePickerButton>
+                  {errors.birthDate && (
+                    <FieldError>{errors.birthDate.message}</FieldError>
+                  )}
                   {idade !== null && idade >= 0 && !errors.birthDate && (
                     <AgeBadgeRow>
                       <AgeDot />
@@ -380,6 +407,54 @@ export function Register() {
           </Divider>
         </CardBox>
       </ScrollView>
+
+      {/* Android: picker nativo abre como dialog automaticamente */}
+      {showDatePicker && Platform.OS === 'android' && (
+        <DateTimePicker
+          value={tempDate}
+          mode="date"
+          display="default"
+          onChange={handleAndroidDateChange}
+          maximumDate={MAX_DATE}
+          minimumDate={MIN_DATE}
+        />
+      )}
+
+      {/* iOS: picker dentro de modal com botão confirmar */}
+      {Platform.OS === 'ios' && (
+        <Modal
+          visible={showDatePicker}
+          transparent
+          animationType="slide"
+          onRequestClose={() => setShowDatePicker(false)}
+        >
+          <IOSPickerOverlay>
+            <IOSPickerContainer>
+              <IOSPickerHeader>
+                <IOSPickerAction onPress={() => setShowDatePicker(false)}>
+                  <IOSPickerActionText>Cancelar</IOSPickerActionText>
+                </IOSPickerAction>
+                <IOSPickerTitle>Data de Nascimento</IOSPickerTitle>
+                <IOSPickerAction onPress={confirmIOSDate}>
+                  <IOSPickerActionText $confirm>Confirmar</IOSPickerActionText>
+                </IOSPickerAction>
+              </IOSPickerHeader>
+              <DateTimePicker
+                value={tempDate}
+                mode="date"
+                display="spinner"
+                onChange={handleIOSTempChange}
+                maximumDate={MAX_DATE}
+                minimumDate={MIN_DATE}
+                locale="pt-BR"
+                themeVariant="light"
+                textColor="#111827"
+                style={{ height: 200, width: '100%' }}
+              />
+            </IOSPickerContainer>
+          </IOSPickerOverlay>
+        </Modal>
+      )}
     </Container>
   );
 }
