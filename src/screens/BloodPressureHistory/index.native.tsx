@@ -2,8 +2,9 @@ import { useNavigation } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LineChart } from 'react-native-chart-kit';
-import { ArrowLeft, Calendar } from 'lucide-react-native';
+import { ArrowLeft, Calendar, User } from 'lucide-react-native';
 import { Navigation, NAV_HEIGHT } from '../../components/Navigation';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
 import {
   Screen,
   PageHeader,
@@ -69,6 +70,7 @@ const getStatusLabel = (status: string) => {
 export function BloodPressureHistory() {
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
+  const { userData } = useCurrentUser();
   const chartWidth = Dimensions.get('window').width - 32;
   const chartData = {
     labels: mockData.map((item) => item.time),
@@ -96,6 +98,10 @@ export function BloodPressureHistory() {
             <BackButtonText>Voltar</BackButtonText>
           </BackButton>
           <PageTitle>Pressão Sanguínea</PageTitle>
+          <DateRow>
+            <User size={14} color="rgba(219, 234, 254, 0.8)" />
+            <DateText>{userData?.elderName ?? '—'}</DateText>
+          </DateRow>
           <DateRow>
             <Calendar size={16} color="rgba(219, 234, 254, 1)" />
             <DateText>

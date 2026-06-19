@@ -2,8 +2,9 @@ import { Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LineChart } from 'react-native-chart-kit';
-import { ArrowLeft, Calendar } from 'lucide-react-native';
+import { ArrowLeft, Calendar, User } from 'lucide-react-native';
 import { Navigation, NAV_HEIGHT } from '../../components/Navigation';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
 import {
   Screen,
   PageHeader,
@@ -77,6 +78,7 @@ const getStatusLabel = (status: string) => {
 export function HeartRateHistory() {
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
+  const { userData } = useCurrentUser();
   const chartWidth = Dimensions.get('window').width - 32;
   const chartData = {
     labels: mockData.map((item) => item.time),
@@ -98,6 +100,10 @@ export function HeartRateHistory() {
             <BackButtonText>Voltar</BackButtonText>
           </BackButton>
           <PageTitle>Batimentos Cardíacos</PageTitle>
+          <DateRow>
+            <User size={14} color="rgba(252, 231, 243, 0.8)" />
+            <DateText>{userData?.elderName ?? '—'}</DateText>
+          </DateRow>
           <DateRow>
             <Calendar size={16} color="#fce7f3" />
             <DateText>

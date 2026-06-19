@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Heart, Eye, EyeOff } from 'lucide-react-native';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
-import { auth } from '../../lib/firebase';
+import { ref, get } from 'firebase/database';
+import * as Crypto from 'expo-crypto';
+import { auth, rtdb } from '../../lib/firebase';
 import { toast } from '../../utils/toast';
 import { Input } from '../../components/Input';
 import { Label } from '../../components/Label';
@@ -40,8 +42,31 @@ export function Login() {
     }
     setIsLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, formData.email, formData.password);
+      // 1. Autentica no Firebase Auth
+      const { user } = await signInWithEmailAndPassword(auth, formData.email, formData.password);
+
+      // 2. Verifica se o perfil existe no Realtime Database
+      const userSnap = await get(ref(rtdb, `users/${user.uid}`));
+      if (!userSnap.exists()) {
+        await signOut(auth);
+        toast.error('Usuário não encontrado no sistema');
+        return;
+      }
+
+      // 3. Confere o hash da senha contra o valor salvo no RTDB
+      const userData = userSnap.val() as { passwordHash: string };
+      const inputHash = await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        formData.password
+      );
+      if (inputHash !== userData.passwordHash) {
+        await signOut(auth);
+        toast.error('Email ou senha incorretos');
+        return;
+      }
+
       toast.success('Login realizado com sucesso!');
+      // onAuthStateChanged em Routes cuida do redirecionamento
     } catch (error) {
       if (error instanceof FirebaseError) {
         if (

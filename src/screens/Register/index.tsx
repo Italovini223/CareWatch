@@ -95,22 +95,29 @@ export function Register() {
 
   const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true);
+    let createdUser: import('firebase/auth').User | null = null;
     try {
-      const serialSnap = await get(
-        query(ref(rtdb, 'users'), orderByChild('braceletSerial'), equalTo(data.braceletSerial))
-      );
-      if (serialSnap.exists()) {
-        toast.error('Este serial de pulseira já está cadastrado');
-        return;
-      }
-
+      // 1. Hash da senha antes de qualquer operação de rede
       const passwordHash = await Crypto.digestStringAsync(
         Crypto.CryptoDigestAlgorithm.SHA256,
         data.password
       );
 
+      // 2. Cria usuário no Firebase Auth (sem RTDB ainda)
       const { user } = await createUserWithEmailAndPassword(auth, data.email, data.password);
+      createdUser = user;
 
+      // 3. Agora autenticado — verifica serial único no RTDB
+      const serialSnap = await get(
+        query(ref(rtdb, 'users'), orderByChild('braceletSerial'), equalTo(data.braceletSerial))
+      );
+      if (serialSnap.exists()) {
+        await user.delete();
+        toast.error('Este serial de pulseira já está cadastrado');
+        return;
+      }
+
+      // 4. Salva perfil no Realtime Database
       await set(ref(rtdb, `users/${user.uid}`), {
         email: data.email,
         braceletSerial: data.braceletSerial,
@@ -124,15 +131,31 @@ export function Register() {
 
       toast.success('Conta criada com sucesso!');
     } catch (error) {
+      // Rollback: remove o usuário do Auth se o RTDB falhou
+      if (createdUser) {
+        try { await createdUser.delete(); } catch {}
+      }
+
       if (error instanceof FirebaseError) {
         if (error.code === 'auth/email-already-in-use') {
           toast.error('Este email já está cadastrado');
         } else if (error.code === 'auth/network-request-failed') {
           toast.error('Erro de conexão. Verifique sua internet');
+        } else if (error.code === 'PERMISSION_DENIED' || error.code === 'permission-denied') {
+          toast.error('Sem permissão no banco de dados. Verifique as regras do Firebase.');
         } else {
-          toast.error('Erro ao criar conta. Tente novamente');
+          toast.error(`Erro ao criar conta: ${error.code}`);
         }
+      } else if (error instanceof Error) {
+        if (error.message.includes('PERMISSION_DENIED')) {
+          toast.error('Sem permissão no banco de dados. Verifique as regras do Firebase.');
+        } else {
+          toast.error(`Erro inesperado: ${error.message}`);
+        }
+      } else {
+        toast.error('Erro desconhecido. Tente novamente.');
       }
+      console.error('[Register] onSubmit error:', error);
     } finally {
       setIsLoading(false);
     }

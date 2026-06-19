@@ -5,6 +5,7 @@ import { Activity, Heart, AlertTriangle, User, LogOut } from 'lucide-react-nativ
 import { useNavigation } from '@react-navigation/native';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { toast } from '../../utils/toast';
 import { StatCard } from '../../components/StatCard';
 import { FallAlert } from '../../components/FallAlert';
@@ -42,6 +43,7 @@ import {
 export function Dashboard() {
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
+  const { userData } = useCurrentUser();
   const [showFallAlert, setShowFallAlert] = useState(false);
   const [currentData, setCurrentData] = useState({
     bloodPressure: { systolic: 120, diastolic: 80 },
@@ -115,7 +117,7 @@ export function Dashboard() {
     <Screen contentContainerStyle={{ paddingBottom: NAV_HEIGHT + insets.bottom }}>
       {showFallAlert ? (
         <FallAlert
-          elderName="Maria Silva"
+          elderName={userData?.elderName ?? 'Paciente'}
           time={new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
           onDismiss={() => setShowFallAlert(false)}
         />
@@ -129,8 +131,8 @@ export function Dashboard() {
                 <User size={24} color="white" />
               </AvatarCircle>
               <UserDetails>
-                <UserName>Maria Silva</UserName>
-                <UserAge>78 anos</UserAge>
+                <UserName>{userData?.elderName ?? '—'}</UserName>
+                <UserAge>{userData?.age != null ? `${userData.age} anos` : '—'}</UserAge>
               </UserDetails>
             </UserInfo>
             <ConnectedBadge>

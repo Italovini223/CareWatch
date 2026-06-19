@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ArrowLeft, Calendar, AlertTriangle, MapPin, Clock } from 'lucide-react-native';
+import { ArrowLeft, Calendar, AlertTriangle, MapPin, Clock, User } from 'lucide-react-native';
 import { Navigation, NAV_HEIGHT } from '../../components/Navigation';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
 import {
   Screen,
   PageHeader,
@@ -92,6 +93,7 @@ const fallIncidents = [
 export function FallsHistory() {
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
+  const { userData } = useCurrentUser();
 
   return (
     <Screen contentContainerStyle={{ paddingBottom: NAV_HEIGHT + insets.bottom }}>
@@ -102,6 +104,10 @@ export function FallsHistory() {
             <BackButtonText>Voltar</BackButtonText>
           </BackButton>
           <PageTitle>Histórico de Quedas</PageTitle>
+          <DateRow>
+            <User size={14} color="rgba(254, 215, 170, 0.8)" />
+            <DateText>{userData?.elderName ?? '—'}</DateText>
+          </DateRow>
           <DateRow>
             <Calendar size={16} color="#fed7aa" />
             <DateText>Últimos 30 dias</DateText>
