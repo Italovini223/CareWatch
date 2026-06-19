@@ -105,7 +105,6 @@ export function Register() {
       });
 
       toast.success('Conta criada com sucesso!');
-      navigation.navigate('MainTabs', { screen: 'Dashboard' });
     } catch (error) {
       if (error instanceof FirebaseError) {
         if (error.code === 'auth/email-already-in-use') {

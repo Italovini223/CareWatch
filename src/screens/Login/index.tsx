@@ -42,7 +42,6 @@ export function Login() {
     try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
       toast.success('Login realizado com sucesso!');
-      navigation.navigate('MainTabs', { screen: 'Dashboard' });
     } catch (error) {
       if (error instanceof FirebaseError) {
         if (
