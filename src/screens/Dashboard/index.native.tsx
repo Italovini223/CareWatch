@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { Animated } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Activity, Heart, AlertTriangle, User, LogOut } from 'lucide-react-native';
+import { Activity, Heart, AlertTriangle, User, LogOut, Wind } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
+import { useBraceletData } from '../../hooks/useBraceletData';
 import { toast } from '../../utils/toast';
 import { StatCard } from '../../components/StatCard';
 import { FallAlert } from '../../components/FallAlert';
@@ -44,12 +45,9 @@ export function Dashboard() {
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
   const { userData } = useCurrentUser();
+  const { reading, lastUpdate } = useBraceletData(userData?.braceletSerial);
   const [showFallAlert, setShowFallAlert] = useState(false);
-  const [currentData, setCurrentData] = useState({
-    bloodPressure: { systolic: 120, diastolic: 80 },
-    heartRate: 72,
-    lastUpdate: new Date(),
-  });
+  const prevQuedaRef = useRef<boolean | null>(null);
   const pulseOpacity = useRef(new Animated.Value(1)).current;
 
   const handleLogout = async () => {
@@ -61,26 +59,13 @@ export function Dashboard() {
     }
   };
 
+  // Trigger fall alert whenever queda transitions to true
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentData({
-        bloodPressure: {
-          systolic: 115 + Math.floor(Math.random() * 20),
-          diastolic: 75 + Math.floor(Math.random() * 15),
-        },
-        heartRate: 68 + Math.floor(Math.random() * 15),
-        lastUpdate: new Date(),
-      });
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
+    if (reading?.queda === true && prevQuedaRef.current !== true) {
       setShowFallAlert(true);
-    }, 3000);
-    return () => clearTimeout(timeout);
-  }, []);
+    }
+    prevQuedaRef.current = reading?.queda ?? null;
+  }, [reading?.queda]);
 
   useEffect(() => {
     Animated.loop(
@@ -99,17 +84,24 @@ export function Dashboard() {
     ).start();
   }, [pulseOpacity]);
 
-  const getBloodPressureStatus = () => {
-    const { systolic, diastolic } = currentData.bloodPressure;
-    if (systolic > 140 || diastolic > 90) return 'danger';
-    if (systolic > 130 || diastolic > 85) return 'warning';
+  const getHeartRateStatus = () => {
+    const bpm = reading?.batimentos;
+    if (bpm == null) return 'normal';
+    if (bpm > 110 || bpm < 55) return 'danger';
+    if (bpm > 100 || bpm < 65) return 'warning';
     return 'normal';
   };
 
-  const getHeartRateStatus = () => {
-    const { heartRate } = currentData;
-    if (heartRate > 100 || heartRate < 60) return 'danger';
-    if (heartRate > 90 || heartRate < 65) return 'warning';
+  const getSpo2Status = () => {
+    const spo2 = reading?.spo2;
+    if (spo2 == null) return 'normal';
+    if (spo2 < 90) return 'danger';
+    if (spo2 < 95) return 'warning';
+    return 'normal';
+  };
+
+  const getFallStatus = () => {
+    if (reading?.queda) return 'danger';
     return 'normal';
   };
 
@@ -141,7 +133,9 @@ export function Dashboard() {
             </ConnectedBadge>
           </HeaderRow>
           <LastUpdate>
-            Última atualização: {currentData.lastUpdate.toLocaleTimeString('pt-BR')}
+            {lastUpdate
+              ? `Última atualização: ${lastUpdate.toLocaleTimeString('pt-BR')}`
+              : 'Aguardando dados da pulseira…'}
           </LastUpdate>
         </HeaderInner>
       </PageHeader>
@@ -149,27 +143,25 @@ export function Dashboard() {
       <Content>
         <StatsContainer>
           <StatCard
-            icon={Activity}
-            label="Pressão Sanguínea"
-            value={`${currentData.bloodPressure.systolic}/${currentData.bloodPressure.diastolic}`}
-            unit="mmHg"
-            status={getBloodPressureStatus() as any}
-            onClick={() => navigation.navigate('BloodPressure')}
+            icon={Wind}
+            label="SpO2"
+            value={reading?.spo2 != null ? reading.spo2.toString() : '—'}
+            unit="%"
+            status={getSpo2Status() as any}
           />
           <StatCard
             icon={Heart}
             label="Batimentos Cardíacos"
-            value={currentData.heartRate.toString()}
+            value={reading?.batimentos != null ? reading.batimentos.toString() : '—'}
             unit="bpm"
             status={getHeartRateStatus() as any}
             onClick={() => navigation.navigate('HeartRate')}
           />
           <StatCard
             icon={AlertTriangle}
-            label="Quedas Hoje"
-            value="1"
-            unit="ocorrência"
-            status="warning"
+            label="Detecção de Queda"
+            value={reading?.queda ? 'Queda!' : 'Normal'}
+            status={getFallStatus() as any}
             onClick={() => navigation.navigate('Falls')}
           />
         </StatsContainer>
