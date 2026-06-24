@@ -1,4 +1,4 @@
-import { Home, Activity, Heart, AlertTriangle } from 'lucide-react-native';
+import { Home, Wind, Heart, AlertTriangle } from 'lucide-react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTheme } from 'styled-components/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -8,7 +8,7 @@ export { NAV_HEIGHT };
 
 const navItems = [
   { icon: Home, label: 'Início', routeName: 'Dashboard' },
-  { icon: Activity, label: 'Pressão', routeName: 'BloodPressure' },
+  { icon: Wind, label: 'SpO₂', routeName: 'BloodPressure' },
   { icon: Heart, label: 'Coração', routeName: 'HeartRate' },
   { icon: AlertTriangle, label: 'Quedas', routeName: 'Falls' },
 ];

@@ -4,6 +4,7 @@ import { ArrowLeft, Calendar, AlertTriangle, MapPin, Clock, User } from 'lucide-
 import { Navigation, NAV_HEIGHT } from '../../components/Navigation';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import {
+  Wrapper,
   Screen,
   PageHeader,
   HeaderInner,
@@ -96,6 +97,7 @@ export function FallsHistory() {
   const { userData } = useCurrentUser();
 
   return (
+    <Wrapper>
     <Screen contentContainerStyle={{ paddingBottom: NAV_HEIGHT + insets.bottom }}>
       <PageHeader $topInset={insets.top}>
         <HeaderInner>
@@ -221,7 +223,8 @@ export function FallsHistory() {
         </TipsCard>
       </Content>
 
-      <Navigation />
     </Screen>
+    <Navigation />
+    </Wrapper>
   );
 }

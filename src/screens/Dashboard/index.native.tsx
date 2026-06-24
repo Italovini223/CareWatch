@@ -12,6 +12,7 @@ import { StatCard } from '../../components/StatCard';
 import { FallAlert } from '../../components/FallAlert';
 import { Navigation, NAV_HEIGHT } from '../../components/Navigation';
 import {
+  Wrapper,
   Screen,
   PageHeader,
   HeaderInner,
@@ -106,6 +107,7 @@ export function Dashboard() {
   };
 
   return (
+    <Wrapper>
     <Screen contentContainerStyle={{ paddingBottom: NAV_HEIGHT + insets.bottom }}>
       {showFallAlert ? (
         <FallAlert
@@ -202,7 +204,8 @@ export function Dashboard() {
         </LogoutArea>
       </Content>
 
-      <Navigation />
     </Screen>
+    <Navigation />
+    </Wrapper>
   );
 }

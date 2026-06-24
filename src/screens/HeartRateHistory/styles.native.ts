@@ -1,6 +1,11 @@
 import styled, { css } from 'styled-components/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+export const Wrapper = styled.View`
+  flex: 1;
+  background-color: ${({ theme }) => theme.COLORS.GRAY[50]};
+`;
+
 export const Screen = styled.ScrollView.attrs({
   contentContainerStyle: {
     paddingBottom: 80,

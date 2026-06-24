@@ -7,6 +7,7 @@ import { Navigation, NAV_HEIGHT } from '../../components/Navigation';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { useAllBraceletReadings } from '../../hooks/useAllBraceletReadings';
 import {
+  Wrapper,
   Screen,
   PageHeader,
   HeaderInner,
@@ -114,6 +115,7 @@ export function HeartRateHistory() {
   const reversedReadings = [...readings].reverse();
 
   return (
+    <Wrapper>
     <Screen contentContainerStyle={{ paddingBottom: NAV_HEIGHT + insets.bottom }}>
       <PageHeader $topInset={insets.top}>
         <HeaderInner>
@@ -257,7 +259,8 @@ export function HeartRateHistory() {
         )}
       </Content>
 
-      <Navigation />
     </Screen>
+    <Navigation />
+    </Wrapper>
   );
 }
