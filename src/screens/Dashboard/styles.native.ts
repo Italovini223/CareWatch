@@ -5,6 +5,7 @@ import { Animated } from 'react-native';
 export const Wrapper = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.COLORS.GRAY[50]};
+  padding-bottom: 50px;
 `;
 
 export const Screen = styled.ScrollView.attrs({

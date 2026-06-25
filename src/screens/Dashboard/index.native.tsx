@@ -7,6 +7,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { useBraceletData } from '../../hooks/useBraceletData';
+import { useAllBraceletReadings } from '../../hooks/useAllBraceletReadings';
 import { toast } from '../../utils/toast';
 import { StatCard } from '../../components/StatCard';
 import { FallAlert } from '../../components/FallAlert';
@@ -47,6 +48,21 @@ export function Dashboard() {
   const insets = useSafeAreaInsets();
   const { userData } = useCurrentUser();
   const { reading, lastUpdate } = useBraceletData(userData?.braceletSerial);
+  const { readings } = useAllBraceletReadings(userData?.braceletSerial);
+
+  const daysMonitored = new Set(
+    readings.map((r) => {
+      const d = r.timestamp > 1e10 ? new Date(r.timestamp) : new Date(r.timestamp * 1000);
+      return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    })
+  ).size;
+
+  const avgBpm =
+    readings.length > 0
+      ? Math.round(readings.reduce((a, r) => a + r.batimentos, 0) / readings.length)
+      : null;
+
+  const totalFalls = readings.filter((r) => r.queda).length;
   const [showFallAlert, setShowFallAlert] = useState(false);
   const prevQuedaRef = useRef<boolean | null>(null);
   const pulseOpacity = useRef(new Animated.Value(1)).current;
@@ -184,15 +200,17 @@ export function Dashboard() {
         <QuickStats>
           <QuickStatCard>
             <QuickStatLabel>Dias Monitorados</QuickStatLabel>
-            <QuickStatValue>45</QuickStatValue>
+            <QuickStatValue>{daysMonitored}</QuickStatValue>
           </QuickStatCard>
           <QuickStatCard>
             <QuickStatLabel>Média BPM</QuickStatLabel>
-            <QuickStatValue>74</QuickStatValue>
+            <QuickStatValue>{avgBpm ?? '—'}</QuickStatValue>
           </QuickStatCard>
           <QuickStatCard $isLast>
             <QuickStatLabel>Total Quedas</QuickStatLabel>
-            <QuickStatValue $color="#CA8A04">3</QuickStatValue>
+            <QuickStatValue $color={totalFalls > 0 ? '#CA8A04' : undefined}>
+              {totalFalls}
+            </QuickStatValue>
           </QuickStatCard>
         </QuickStats>
 

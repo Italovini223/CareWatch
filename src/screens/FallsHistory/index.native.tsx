@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ArrowLeft, Calendar, AlertTriangle, MapPin, Clock, User } from 'lucide-react-native';
+import { ArrowLeft, Calendar, AlertTriangle, Clock, User } from 'lucide-react-native';
 import { Navigation, NAV_HEIGHT } from '../../components/Navigation';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
+import { useAllBraceletReadings } from '../../hooks/useAllBraceletReadings';
 import {
   Wrapper,
   Screen,
@@ -32,7 +33,6 @@ import {
   IncidentTitleBlock,
   IncidentTitle,
   IncidentDate,
-  SeverityBadge,
   IncidentMetaList,
   IncidentMetaItem,
   IncidentMetaText,
@@ -42,12 +42,6 @@ import {
   VitalItem,
   VitalLabel,
   VitalValue,
-  NotesSection,
-  NotesLabel,
-  NotesText,
-  RespondedRow,
-  RespondedDot,
-  RespondedText,
   TipsCard,
   TipsTitle,
   TipItem,
@@ -55,46 +49,40 @@ import {
   TipText,
 } from './styles.native';
 
-const fallIncidents = [
-  {
-    id: 1,
-    date: '29 de março de 2026',
-    time: '14:32',
-    location: 'Sala de estar',
-    severity: 'moderate',
-    severityLabel: 'Moderada',
-    responded: true,
-    notes: 'Idosa levantou sozinha após 2 minutos. Sem ferimentos aparentes.',
-    vitals: { heartRate: 95, bloodPressure: '135/88' },
-  },
-  {
-    id: 2,
-    date: '25 de março de 2026',
-    time: '08:15',
-    location: 'Banheiro',
-    severity: 'low',
-    severityLabel: 'Leve',
-    responded: true,
-    notes: 'Escorregou ao sair do banho. Sem lesões.',
-    vitals: { heartRate: 88, bloodPressure: '128/82' },
-  },
-  {
-    id: 3,
-    date: '18 de março de 2026',
-    time: '19:45',
-    location: 'Quarto',
-    severity: 'low',
-    severityLabel: 'Leve',
-    responded: true,
-    notes: 'Tropeçou no tapete. Assistência imediata prestada.',
-    vitals: { heartRate: 82, bloodPressure: '122/80' },
-  },
-];
+const formatDate = (ts: number): string => {
+  const d = ts > 1e10 ? new Date(ts) : new Date(ts * 1000);
+  return d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+};
+
+const formatTime = (ts: number): string => {
+  const d = ts > 1e10 ? new Date(ts) : new Date(ts * 1000);
+  return d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+};
 
 export function FallsHistory() {
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
   const { userData } = useCurrentUser();
+  const { readings, loading } = useAllBraceletReadings(userData?.braceletSerial);
+
+  const fallReadings = [...readings].filter((r) => r.queda).reverse();
+
+  const now = new Date();
+  const thisMonthCount = fallReadings.filter((r) => {
+    const d = r.timestamp > 1e10 ? new Date(r.timestamp) : new Date(r.timestamp * 1000);
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  }).length;
+
+  const uniqueMonths = new Set(
+    fallReadings.map((r) => {
+      const d = r.timestamp > 1e10 ? new Date(r.timestamp) : new Date(r.timestamp * 1000);
+      return `${d.getFullYear()}-${d.getMonth()}`;
+    })
+  );
+  const avgMonthly =
+    uniqueMonths.size > 0 ? (fallReadings.length / uniqueMonths.size).toFixed(1) : '0';
+
+  const hasFalls = fallReadings.length > 0;
 
   return (
     <Wrapper>
@@ -121,89 +109,84 @@ export function FallsHistory() {
         <StatsRow>
           <StatItem>
             <StatItemLabel>Total</StatItemLabel>
-            <StatItemValue>3</StatItemValue>
+            <StatItemValue>{loading ? '…' : fallReadings.length}</StatItemValue>
           </StatItem>
           <StatItem>
             <StatItemLabel>Este Mês</StatItemLabel>
-            <StatItemValue $color="#ea580c">3</StatItemValue>
+            <StatItemValue $color={thisMonthCount > 0 ? '#ea580c' : undefined}>
+              {loading ? '…' : thisMonthCount}
+            </StatItemValue>
           </StatItem>
           <StatItem $isLast>
             <StatItemLabel>Média Mensal</StatItemLabel>
-            <StatItemValue>2.5</StatItemValue>
+            <StatItemValue>{loading ? '…' : avgMonthly}</StatItemValue>
           </StatItem>
         </StatsRow>
 
-        <AlertCard>
-          <AlertIconWrapper>
-            <AlertTriangle size={16} color="white" />
-          </AlertIconWrapper>
-          <AlertContent>
-            <AlertTitle>Recomendação de Segurança</AlertTitle>
-            <AlertText>
-              Foram detectadas 3 quedas no último mês. Recomenda-se avaliação médica e revisão das
-              condições de segurança do ambiente.
-            </AlertText>
-          </AlertContent>
-        </AlertCard>
+        {hasFalls && (
+          <AlertCard>
+            <AlertIconWrapper>
+              <AlertTriangle size={16} color="white" />
+            </AlertIconWrapper>
+            <AlertContent>
+              <AlertTitle>Recomendação de Segurança</AlertTitle>
+              <AlertText>
+                Foram detectadas {fallReadings.length} queda{fallReadings.length !== 1 ? 's' : ''}.
+                Recomenda-se avaliação médica e revisão das condições de segurança do ambiente.
+              </AlertText>
+            </AlertContent>
+          </AlertCard>
+        )}
 
         <SectionTitle>Todas as Ocorrências</SectionTitle>
 
         <IncidentsList>
-          {fallIncidents.map((incident) => (
-            <IncidentCard key={incident.id}>
-              <IncidentHeader>
-                <IncidentTitleRow>
-                  <IncidentIconBox>
-                    <AlertTriangle size={20} color="#dc2626" />
-                  </IncidentIconBox>
-                  <IncidentTitleBlock>
-                    <IncidentTitle>Queda Detectada</IncidentTitle>
-                    <IncidentDate>{incident.date}</IncidentDate>
-                  </IncidentTitleBlock>
-                </IncidentTitleRow>
-                <SeverityBadge $severity={incident.severity}>
-                  {incident.severityLabel}
-                </SeverityBadge>
-              </IncidentHeader>
+          {loading ? (
+            <StatItemLabel style={{ textAlign: 'center', paddingVertical: 40 }}>
+              Buscando dados…
+            </StatItemLabel>
+          ) : !hasFalls ? (
+            <StatItemLabel style={{ textAlign: 'center', paddingVertical: 40 }}>
+              Nenhuma queda detectada
+            </StatItemLabel>
+          ) : (
+            fallReadings.map((r) => (
+              <IncidentCard key={r.key}>
+                <IncidentHeader>
+                  <IncidentTitleRow>
+                    <IncidentIconBox>
+                      <AlertTriangle size={20} color="#dc2626" />
+                    </IncidentIconBox>
+                    <IncidentTitleBlock>
+                      <IncidentTitle>Queda Detectada</IncidentTitle>
+                      <IncidentDate>{formatDate(r.timestamp)}</IncidentDate>
+                    </IncidentTitleBlock>
+                  </IncidentTitleRow>
+                </IncidentHeader>
 
-              <IncidentMetaList>
-                <IncidentMetaItem>
-                  <Clock size={16} color="#6B7280" />
-                  <IncidentMetaText>{incident.time}</IncidentMetaText>
-                </IncidentMetaItem>
-                <IncidentMetaItem>
-                  <MapPin size={16} color="#6B7280" />
-                  <IncidentMetaText>{incident.location}</IncidentMetaText>
-                </IncidentMetaItem>
-              </IncidentMetaList>
+                <IncidentMetaList>
+                  <IncidentMetaItem>
+                    <Clock size={16} color="#6B7280" />
+                    <IncidentMetaText>{formatTime(r.timestamp)}</IncidentMetaText>
+                  </IncidentMetaItem>
+                </IncidentMetaList>
 
-              <VitalsBox>
-                <VitalsTitle>Sinais Vitais no Momento</VitalsTitle>
-                <VitalsRow>
-                  <VitalItem>
-                    <VitalLabel>Batimentos</VitalLabel>
-                    <VitalValue>{incident.vitals.heartRate} bpm</VitalValue>
-                  </VitalItem>
-                  <VitalItem $isLast>
-                    <VitalLabel>Pressão</VitalLabel>
-                    <VitalValue>{incident.vitals.bloodPressure} mmHg</VitalValue>
-                  </VitalItem>
-                </VitalsRow>
-              </VitalsBox>
-
-              <NotesSection>
-                <NotesLabel>Observações:</NotesLabel>
-                <NotesText>{incident.notes}</NotesText>
-              </NotesSection>
-
-              {incident.responded ? (
-                <RespondedRow>
-                  <RespondedDot />
-                  <RespondedText>Atendido</RespondedText>
-                </RespondedRow>
-              ) : null}
-            </IncidentCard>
-          ))}
+                <VitalsBox>
+                  <VitalsTitle>Sinais Vitais no Momento</VitalsTitle>
+                  <VitalsRow>
+                    <VitalItem>
+                      <VitalLabel>Batimentos</VitalLabel>
+                      <VitalValue>{r.batimentos} bpm</VitalValue>
+                    </VitalItem>
+                    <VitalItem $isLast>
+                      <VitalLabel>SpO₂</VitalLabel>
+                      <VitalValue>{r.spo2}%</VitalValue>
+                    </VitalItem>
+                  </VitalsRow>
+                </VitalsBox>
+              </IncidentCard>
+            ))
+          )}
         </IncidentsList>
 
         <TipsCard>
