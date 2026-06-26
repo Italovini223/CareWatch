@@ -7,6 +7,10 @@ import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import Constants from 'expo-constants';
 
+import { onAuthStateChanged } from 'firebase/auth';
+import { ref, update } from 'firebase/database';
+import { auth, rtdb } from './src/lib/firebase';
+import { registerFallDetectionTask } from './src/tasks/fallDetectionTask';
 import { Routes } from './src/navigation';
 import theme from './src/theme';
 
@@ -69,7 +73,14 @@ export default function App() {
   });
 
   useEffect(() => {
-    registerForPushNotificationsAsync();
+    const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
+      const token = await registerForPushNotificationsAsync();
+      if (token) {
+        await update(ref(rtdb, `users/${user.uid}`), { expoPushToken: token });
+      }
+      await registerFallDetectionTask();
+    });
 
     notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
       console.log('[PUSH] Notificação recebida:', notification);
@@ -80,6 +91,7 @@ export default function App() {
     });
 
     return () => {
+      unsubscribeAuth();
       notificationListener.current?.remove();
       responseListener.current?.remove();
     };

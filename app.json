@@ -32,6 +32,8 @@
     },
     "plugins": [
       "@react-native-community/datetimepicker",
+      "expo-task-manager",
+      "expo-background-fetch",
       [
         "expo-notifications",
         {
